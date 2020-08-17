@@ -1,0 +1,1889 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="1.0" xmlns:edmx="http://schemas.microsoft.com/ado/2007/06/edmx" xmlns:m="http://schemas.microsoft.com/ado/2007/08/dataservices/metadata" xmlns:sap="http://www.sap.com/Protocols/SAPData">
+  <edmx:Reference Uri="https://oasis-tcs.github.io/odata-vocabularies/vocabularies/Org.OData.Aggregation.V1.xml" xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx">
+    <edmx:Include Alias="Aggregation" Namespace="Org.OData.Aggregation.V1"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="https://sap.github.io/odata-vocabularies/vocabularies/Analytics.xml" xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx">
+    <edmx:Include Alias="Analytics" Namespace="com.sap.vocabularies.Analytics.v1"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="https://oasis-tcs.github.io/odata-vocabularies/vocabularies/Org.OData.Capabilities.V1.xml" xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx">
+    <edmx:Include Alias="Capabilities" Namespace="Org.OData.Capabilities.V1"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="https://sap.github.io/odata-vocabularies/vocabularies/Common.xml" xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx">
+    <edmx:Include Alias="Common" Namespace="com.sap.vocabularies.Common.v1"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="https://oasis-tcs.github.io/odata-vocabularies/vocabularies/Org.OData.Core.V1.xml" xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx">
+    <edmx:Include Alias="Core" Namespace="Org.OData.Core.V1"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="https://sap.github.io/odata-vocabularies/vocabularies/UI.xml" xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx">
+    <edmx:Include Alias="UI" Namespace="com.sap.vocabularies.UI.v1"/>
+  </edmx:Reference>
+  <edmx:DataServices m:DataServiceVersion="2.0">
+    <Schema Namespace="CatalogService" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
+      <EntityContainer Name="EntityContainer" m:IsDefaultEntityContainer="true">
+        <EntitySet Name="Campaigns" EntityType="CatalogService.Campaigns"/>
+        <EntitySet Name="CampaignsALP" EntityType="CatalogService.CampaignsALP"/>
+        <EntitySet Name="Countries" EntityType="CatalogService.Countries"/>
+        <EntitySet Name="Countries_texts" EntityType="CatalogService.Countries_texts"/>
+        <EntitySet Name="Genders" EntityType="CatalogService.Genders"/>
+        <EntitySet Name="Jobs" EntityType="CatalogService.Jobs"/>
+        <EntitySet Name="JobsALP" EntityType="CatalogService.JobsALP"/>
+        <EntitySet Name="NGO" EntityType="CatalogService.NGO"/>
+        <EntitySet Name="NGOsALP" EntityType="CatalogService.NGOsALP"/>
+        <EntitySet Name="Radius" EntityType="CatalogService.Radius"/>
+        <EntitySet Name="Skill_details" EntityType="CatalogService.Skill_details"/>
+        <EntitySet Name="Skill_types" EntityType="CatalogService.Skill_types"/>
+        <EntitySet Name="Status" EntityType="CatalogService.Status"/>
+        <EntitySet Name="Workers" EntityType="CatalogService.Workers"/>
+        <EntitySet Name="WorkersALP" EntityType="CatalogService.WorkersALP"/>
+        <AssociationSet Name="Campaigns_ngo" Association="CatalogService.Campaigns_ngo">
+          <End Role="Campaigns" EntitySet="Campaigns"/>
+          <End Role="NGO" EntitySet="NGO"/>
+        </AssociationSet>
+        <AssociationSet Name="Countries_texts_1" Association="CatalogService.Countries_texts_1">
+          <End Role="Countries" EntitySet="Countries"/>
+          <End Role="Countries_texts" EntitySet="Countries_texts"/>
+        </AssociationSet>
+        <AssociationSet Name="Countries_localized" Association="CatalogService.Countries_localized">
+          <End Role="Countries" EntitySet="Countries"/>
+          <End Role="Countries_texts" EntitySet="Countries_texts"/>
+        </AssociationSet>
+        <AssociationSet Name="Jobs_country" Association="CatalogService.Jobs_country">
+          <End Role="Jobs" EntitySet="Jobs"/>
+          <End Role="Countries" EntitySet="Countries"/>
+        </AssociationSet>
+        <AssociationSet Name="NGO_country" Association="CatalogService.NGO_country">
+          <End Role="NGO" EntitySet="NGO"/>
+          <End Role="Countries" EntitySet="Countries"/>
+        </AssociationSet>
+        <AssociationSet Name="Skill_details_worker" Association="CatalogService.Skill_details_worker">
+          <End Role="Skill_details" EntitySet="Skill_details"/>
+          <End Role="Workers" EntitySet="Workers"/>
+        </AssociationSet>
+        <AssociationSet Name="Skill_details_job" Association="CatalogService.Skill_details_job">
+          <End Role="Skill_details" EntitySet="Skill_details"/>
+          <End Role="Jobs" EntitySet="Jobs"/>
+        </AssociationSet>
+        <AssociationSet Name="Workers_country" Association="CatalogService.Workers_country">
+          <End Role="Workers" EntitySet="Workers"/>
+          <End Role="Countries" EntitySet="Countries"/>
+        </AssociationSet>
+      </EntityContainer>
+      <EntityType Name="Campaigns">
+        <Key>
+          <PropertyRef Name="ID"/>
+        </Key>
+        <Property Name="createdAt" Type="Edm.DateTimeOffset" Precision="7"/>
+        <Property Name="createdBy" Type="Edm.String" MaxLength="255"/>
+        <Property Name="modifiedAt" Type="Edm.DateTimeOffset" Precision="7"/>
+        <Property Name="modifiedBy" Type="Edm.String" MaxLength="255"/>
+        <Property Name="ID" Type="Edm.Guid" Nullable="false"/>
+        <Property Name="title" Type="Edm.String"/>
+        <Property Name="description" Type="Edm.String"/>
+        <Property Name="fb_link" Type="Edm.String"/>
+        <NavigationProperty Name="ngo" Relationship="CatalogService.Campaigns_ngo" FromRole="Campaigns" ToRole="NGO"/>
+        <Property Name="category" Type="Edm.String"/>
+        <Property Name="start_date" Type="Edm.DateTime" sap:display-format="Date"/>
+        <Property Name="end_date" Type="Edm.DateTime" sap:display-format="Date"/>
+        <Property Name="location" Type="Edm.String"/>
+        <Property Name="person_name" Type="Edm.String"/>
+        <Property Name="number" Type="Edm.String"/>
+        <Property Name="mail_id" Type="Edm.String"/>
+        <Property Name="campaign_image_url" Type="Edm.String"/>
+        <Property Name="radius" Type="Edm.String" MaxLength="200" sap:value-list="fixed-values"/>
+        <Property Name="status" Type="Edm.String" MaxLength="50" sap:value-list="fixed-values"/>
+        <Property Name="imageUrl" Type="Edm.String"/>
+        <Property Name="imageType" Type="Edm.String"/>
+        <Property Name="ngo_ID" Type="Edm.Guid"/>
+      </EntityType>
+      <EntityType Name="CampaignsALP" sap:semantics="aggregate">
+        <Key>
+          <PropertyRef Name="ID__"/>
+        </Key>
+        <Property Name="ID__" Type="Edm.String" Nullable="false" sap:sortable="false" sap:filterable="false"/>
+        <Property Name="ID" Type="Edm.Int32" sap:label="Campaings"/>
+        <Property Name="count" Type="Edm.Int32" sap:aggregation-role="measure" sap:label="Campaings"/>
+        <Property Name="name" Type="Edm.String"/>
+        <Property Name="locality" Type="Edm.String" sap:aggregation-role="dimension" sap:label="Locality"/>
+        <Property Name="city" Type="Edm.String" sap:aggregation-role="dimension" sap:label="City"/>
+        <Property Name="state" Type="Edm.String" sap:aggregation-role="dimension" sap:label="State"/>
+        <Property Name="category" Type="Edm.String" sap:aggregation-role="dimension" sap:label="Category"/>
+      </EntityType>
+      <EntityType Name="Countries">
+        <Key>
+          <PropertyRef Name="code"/>
+        </Key>
+        <Property Name="name" Type="Edm.String" MaxLength="255"/>
+        <Property Name="descr" Type="Edm.String" MaxLength="1000"/>
+        <Property Name="code" Type="Edm.String" MaxLength="3" Nullable="false"/>
+        <NavigationProperty Name="texts" Relationship="CatalogService.Countries_texts_1" FromRole="Countries" ToRole="Countries_texts"/>
+        <NavigationProperty Name="localized" Relationship="CatalogService.Countries_localized" FromRole="Countries" ToRole="Countries_texts"/>
+      </EntityType>
+      <EntityType Name="Countries_texts">
+        <Key>
+          <PropertyRef Name="locale"/>
+          <PropertyRef Name="code"/>
+        </Key>
+        <Property Name="locale" Type="Edm.String" MaxLength="14" Nullable="false"/>
+        <Property Name="name" Type="Edm.String" MaxLength="255"/>
+        <Property Name="descr" Type="Edm.String" MaxLength="1000"/>
+        <Property Name="code" Type="Edm.String" MaxLength="3" Nullable="false"/>
+      </EntityType>
+      <EntityType Name="Genders">
+        <Key>
+          <PropertyRef Name="gender"/>
+        </Key>
+        <Property Name="gender" Type="Edm.String" Nullable="false"/>
+      </EntityType>
+      <EntityType Name="Jobs">
+        <Key>
+          <PropertyRef Name="ID"/>
+        </Key>
+        <Property Name="createdAt" Type="Edm.DateTimeOffset" Precision="7"/>
+        <Property Name="createdBy" Type="Edm.String" MaxLength="255"/>
+        <Property Name="modifiedAt" Type="Edm.DateTimeOffset" Precision="7"/>
+        <Property Name="modifiedBy" Type="Edm.String" MaxLength="255"/>
+        <Property Name="ID" Type="Edm.Guid" Nullable="false"/>
+        <Property Name="title" Type="Edm.String"/>
+        <Property Name="description" Type="Edm.String"/>
+        <Property Name="skill" Type="Edm.String" MaxLength="200" sap:value-list="fixed-values"/>
+        <Property Name="exper_in_months" Type="Edm.String"/>
+        <Property Name="locality" Type="Edm.String"/>
+        <Property Name="salary_range" Type="Edm.String"/>
+        <Property Name="openings" Type="Edm.String"/>
+        <Property Name="city" Type="Edm.String"/>
+        <Property Name="state" Type="Edm.String"/>
+        <NavigationProperty Name="country" Relationship="CatalogService.Jobs_country" FromRole="Jobs" ToRole="Countries"/>
+        <Property Name="status" Type="Edm.String" MaxLength="50" sap:value-list="fixed-values"/>
+        <Property Name="phone" Type="Edm.String"/>
+        <Property Name="start_date" Type="Edm.DateTime" sap:display-format="Date"/>
+        <Property Name="end_date" Type="Edm.DateTime" sap:display-format="Date"/>
+        <Property Name="imageUrl" Type="Edm.String"/>
+        <Property Name="imageType" Type="Edm.String"/>
+        <Property Name="country_code" Type="Edm.String" MaxLength="3"/>
+      </EntityType>
+      <EntityType Name="JobsALP" sap:semantics="aggregate">
+        <Key>
+          <PropertyRef Name="ID__"/>
+        </Key>
+        <Property Name="ID__" Type="Edm.String" Nullable="false" sap:sortable="false" sap:filterable="false"/>
+        <Property Name="ID" Type="Edm.Int32" sap:label="Jobs"/>
+        <Property Name="count" Type="Edm.Int32" sap:aggregation-role="measure" sap:label="Jobs"/>
+        <Property Name="name" Type="Edm.String"/>
+        <Property Name="locality" Type="Edm.String" sap:aggregation-role="dimension" sap:label="Locality"/>
+        <Property Name="city" Type="Edm.String" sap:aggregation-role="dimension" sap:label="City"/>
+        <Property Name="state" Type="Edm.String" sap:aggregation-role="dimension" sap:label="State"/>
+        <Property Name="skill" Type="Edm.String" sap:aggregation-role="dimension" sap:label="Skill"/>
+      </EntityType>
+      <EntityType Name="NGO">
+        <Key>
+          <PropertyRef Name="ID"/>
+        </Key>
+        <Property Name="createdAt" Type="Edm.DateTimeOffset" Precision="7"/>
+        <Property Name="createdBy" Type="Edm.String" MaxLength="255"/>
+        <Property Name="modifiedAt" Type="Edm.DateTimeOffset" Precision="7"/>
+        <Property Name="modifiedBy" Type="Edm.String" MaxLength="255"/>
+        <Property Name="ID" Type="Edm.Guid" Nullable="false"/>
+        <Property Name="ngo_registration_number" Type="Edm.String"/>
+        <Property Name="name" Type="Edm.String"/>
+        <Property Name="phone" Type="Edm.String"/>
+        <Property Name="category" Type="Edm.String"/>
+        <Property Name="locality" Type="Edm.String"/>
+        <Property Name="city" Type="Edm.String"/>
+        <Property Name="state" Type="Edm.String"/>
+        <NavigationProperty Name="country" Relationship="CatalogService.NGO_country" FromRole="NGO" ToRole="Countries"/>
+        <Property Name="pin_code" Type="Edm.String"/>
+        <Property Name="web_id" Type="Edm.String"/>
+        <NavigationProperty Name="Campaigns" Relationship="CatalogService.Campaigns_ngo" FromRole="NGO" ToRole="Campaigns"/>
+        <Property Name="radius" Type="Edm.String" MaxLength="200" sap:value-list="fixed-values"/>
+        <Property Name="imageUrl" Type="Edm.String"/>
+        <Property Name="imageType" Type="Edm.String"/>
+        <Property Name="country_code" Type="Edm.String" MaxLength="3"/>
+      </EntityType>
+      <EntityType Name="NGOsALP" sap:semantics="aggregate">
+        <Key>
+          <PropertyRef Name="ID__"/>
+        </Key>
+        <Property Name="ID__" Type="Edm.String" Nullable="false" sap:sortable="false" sap:filterable="false"/>
+        <Property Name="ID" Type="Edm.Int32" sap:label="NGOs"/>
+        <Property Name="count" Type="Edm.Int32" sap:aggregation-role="measure" sap:label="NGOs"/>
+        <Property Name="name" Type="Edm.String"/>
+        <Property Name="locality" Type="Edm.String" sap:aggregation-role="dimension" sap:label="Locality"/>
+        <Property Name="city" Type="Edm.String" sap:aggregation-role="dimension" sap:label="City"/>
+        <Property Name="state" Type="Edm.String" sap:aggregation-role="dimension" sap:label="State"/>
+        <Property Name="category" Type="Edm.String" sap:aggregation-role="dimension" sap:label="Category"/>
+      </EntityType>
+      <EntityType Name="Radius">
+        <Key>
+          <PropertyRef Name="radius"/>
+        </Key>
+        <Property Name="radius" Type="Edm.String" Nullable="false"/>
+      </EntityType>
+      <EntityType Name="Skill_details">
+        <Key>
+          <PropertyRef Name="ID"/>
+        </Key>
+        <Property Name="createdAt" Type="Edm.DateTimeOffset" Precision="7"/>
+        <Property Name="createdBy" Type="Edm.String" MaxLength="255"/>
+        <Property Name="modifiedAt" Type="Edm.DateTimeOffset" Precision="7"/>
+        <Property Name="modifiedBy" Type="Edm.String" MaxLength="255"/>
+        <Property Name="ID" Type="Edm.Guid" Nullable="false"/>
+        <Property Name="skill" Type="Edm.String" MaxLength="200" sap:value-list="fixed-values"/>
+        <NavigationProperty Name="worker" Relationship="CatalogService.Skill_details_worker" FromRole="Skill_details" ToRole="Workers"/>
+        <NavigationProperty Name="job" Relationship="CatalogService.Skill_details_job" FromRole="Skill_details" ToRole="Jobs"/>
+        <Property Name="experience" Type="Edm.String"/>
+        <Property Name="worker_ID" Type="Edm.Guid"/>
+        <Property Name="job_ID" Type="Edm.Guid"/>
+      </EntityType>
+      <EntityType Name="Skill_types">
+        <Key>
+          <PropertyRef Name="skill"/>
+        </Key>
+        <Property Name="skill" Type="Edm.String" Nullable="false"/>
+      </EntityType>
+      <EntityType Name="Status">
+        <Key>
+          <PropertyRef Name="status"/>
+        </Key>
+        <Property Name="status" Type="Edm.String" Nullable="false"/>
+      </EntityType>
+      <EntityType Name="Workers">
+        <Key>
+          <PropertyRef Name="ID"/>
+        </Key>
+        <Property Name="createdAt" Type="Edm.DateTimeOffset" Precision="7"/>
+        <Property Name="createdBy" Type="Edm.String" MaxLength="255"/>
+        <Property Name="modifiedAt" Type="Edm.DateTimeOffset" Precision="7"/>
+        <Property Name="modifiedBy" Type="Edm.String" MaxLength="255"/>
+        <Property Name="ID" Type="Edm.Guid" Nullable="false"/>
+        <Property Name="name" Type="Edm.String"/>
+        <Property Name="phone" Type="Edm.String"/>
+        <Property Name="gender" Type="Edm.String" MaxLength="50" sap:value-list="fixed-values"/>
+        <Property Name="locality" Type="Edm.String"/>
+        <Property Name="city" Type="Edm.String"/>
+        <Property Name="state" Type="Edm.String"/>
+        <NavigationProperty Name="country" Relationship="CatalogService.Workers_country" FromRole="Workers" ToRole="Countries"/>
+        <Property Name="lat" Type="Edm.Double"/>
+        <Property Name="long" Type="Edm.Double"/>
+        <Property Name="radius" Type="Edm.String" MaxLength="200" sap:value-list="fixed-values"/>
+        <Property Name="pin_code" Type="Edm.String"/>
+        <Property Name="aadhar" Type="Edm.String"/>
+        <Property Name="birth_date" Type="Edm.DateTime" sap:display-format="Date"/>
+        <Property Name="status" Type="Edm.String" MaxLength="50" sap:value-list="fixed-values"/>
+        <Property Name="skill" Type="Edm.String" MaxLength="200" sap:value-list="fixed-values"/>
+        <Property Name="imageUrl" Type="Edm.String"/>
+        <Property Name="imageType" Type="Edm.String"/>
+        <NavigationProperty Name="Skill_details" Relationship="CatalogService.Skill_details_worker" FromRole="Workers" ToRole="Skill_details"/>
+        <Property Name="country_code" Type="Edm.String" MaxLength="3"/>
+      </EntityType>
+      <EntityType Name="WorkersALP" sap:semantics="aggregate">
+        <Key>
+          <PropertyRef Name="ID__"/>
+        </Key>
+        <Property Name="ID__" Type="Edm.String" Nullable="false" sap:sortable="false" sap:filterable="false"/>
+        <Property Name="ID" Type="Edm.Int32" sap:label="Workers"/>
+        <Property Name="count" Type="Edm.Int32" sap:aggregation-role="measure" sap:label="Workers"/>
+        <Property Name="locality" Type="Edm.String" sap:aggregation-role="dimension" sap:label="Locality"/>
+        <Property Name="city" Type="Edm.String" sap:aggregation-role="dimension" sap:label="City"/>
+        <Property Name="state" Type="Edm.String" sap:aggregation-role="dimension" sap:label="State"/>
+        <Property Name="skill" Type="Edm.String" sap:aggregation-role="dimension" sap:label="Skill"/>
+      </EntityType>
+      <Association Name="Campaigns_ngo">
+        <End Role="Campaigns" Type="CatalogService.Campaigns" Multiplicity="*"/>
+        <End Role="NGO" Type="CatalogService.NGO" Multiplicity="0..1"/>
+        <ReferentialConstraint>
+          <Principal Role="NGO">
+            <PropertyRef Name="ID"/>
+          </Principal>
+          <Dependent Role="Campaigns">
+            <PropertyRef Name="ngo_ID"/>
+          </Dependent>
+        </ReferentialConstraint>
+      </Association>
+      <Association Name="Countries_texts_1">
+        <End Role="Countries" Type="CatalogService.Countries" Multiplicity="*"/>
+        <End Role="Countries_texts" Type="CatalogService.Countries_texts" Multiplicity="*">
+          <OnDelete Action="Cascade"/>
+        </End>
+      </Association>
+      <Association Name="Countries_localized">
+        <End Role="Countries" Type="CatalogService.Countries" Multiplicity="*"/>
+        <End Role="Countries_texts" Type="CatalogService.Countries_texts" Multiplicity="0..1"/>
+        <ReferentialConstraint>
+          <Principal Role="Countries_texts">
+            <PropertyRef Name="code"/>
+          </Principal>
+          <Dependent Role="Countries">
+            <PropertyRef Name="code"/>
+          </Dependent>
+        </ReferentialConstraint>
+      </Association>
+      <Association Name="Jobs_country">
+        <End Role="Jobs" Type="CatalogService.Jobs" Multiplicity="*"/>
+        <End Role="Countries" Type="CatalogService.Countries" Multiplicity="0..1"/>
+        <ReferentialConstraint>
+          <Principal Role="Countries">
+            <PropertyRef Name="code"/>
+          </Principal>
+          <Dependent Role="Jobs">
+            <PropertyRef Name="country_code"/>
+          </Dependent>
+        </ReferentialConstraint>
+      </Association>
+      <Association Name="NGO_country">
+        <End Role="NGO" Type="CatalogService.NGO" Multiplicity="*"/>
+        <End Role="Countries" Type="CatalogService.Countries" Multiplicity="0..1"/>
+        <ReferentialConstraint>
+          <Principal Role="Countries">
+            <PropertyRef Name="code"/>
+          </Principal>
+          <Dependent Role="NGO">
+            <PropertyRef Name="country_code"/>
+          </Dependent>
+        </ReferentialConstraint>
+      </Association>
+      <Association Name="Skill_details_worker">
+        <End Role="Skill_details" Type="CatalogService.Skill_details" Multiplicity="*"/>
+        <End Role="Workers" Type="CatalogService.Workers" Multiplicity="0..1"/>
+        <ReferentialConstraint>
+          <Principal Role="Workers">
+            <PropertyRef Name="ID"/>
+          </Principal>
+          <Dependent Role="Skill_details">
+            <PropertyRef Name="worker_ID"/>
+          </Dependent>
+        </ReferentialConstraint>
+      </Association>
+      <Association Name="Skill_details_job">
+        <End Role="Skill_details" Type="CatalogService.Skill_details" Multiplicity="*"/>
+        <End Role="Jobs" Type="CatalogService.Jobs" Multiplicity="0..1"/>
+        <ReferentialConstraint>
+          <Principal Role="Jobs">
+            <PropertyRef Name="ID"/>
+          </Principal>
+          <Dependent Role="Skill_details">
+            <PropertyRef Name="job_ID"/>
+          </Dependent>
+        </ReferentialConstraint>
+      </Association>
+      <Association Name="Workers_country">
+        <End Role="Workers" Type="CatalogService.Workers" Multiplicity="*"/>
+        <End Role="Countries" Type="CatalogService.Countries" Multiplicity="0..1"/>
+        <ReferentialConstraint>
+          <Principal Role="Countries">
+            <PropertyRef Name="code"/>
+          </Principal>
+          <Dependent Role="Workers">
+            <PropertyRef Name="country_code"/>
+          </Dependent>
+        </ReferentialConstraint>
+      </Association>
+      <Annotations Target="CatalogService.Campaigns" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+        <Annotation Term="UI.Facets">
+          <Collection>
+            <Record Type="UI.ReferenceFacet">
+              <PropertyValue Property="Label" String="General Information"/>
+              <PropertyValue Property="Target" AnnotationPath="@UI.FieldGroup#GeneralCamp"/>
+            </Record>
+            <Record Type="UI.ReferenceFacet">
+              <PropertyValue Property="Label" String="Location"/>
+              <PropertyValue Property="Target" AnnotationPath="@UI.FieldGroup#AddressDetailsCamp"/>
+            </Record>
+            <Record Type="UI.ReferenceFacet">
+              <PropertyValue Property="Label" String="Contact Information"/>
+              <PropertyValue Property="Target" AnnotationPath="@UI.FieldGroup#ContactDetailsCamp"/>
+            </Record>
+          </Collection>
+        </Annotation>
+        <Annotation Term="UI.FieldGroup" Qualifier="AddressDetailsCamp">
+          <Record Type="UI.FieldGroupType">
+            <PropertyValue Property="Data">
+              <Collection>
+                <Record Type="UI.DataField">
+                  <PropertyValue Property="Value" Path="location"/>
+                </Record>
+              </Collection>
+            </PropertyValue>
+            <PropertyValue Property="Label" String="Location"/>
+          </Record>
+        </Annotation>
+        <Annotation Term="UI.FieldGroup" Qualifier="ContactDetailsCamp">
+          <Record Type="UI.FieldGroupType">
+            <PropertyValue Property="Data">
+              <Collection>
+                <Record Type="UI.DataField">
+                  <PropertyValue Property="Value" Path="person_name"/>
+                </Record>
+                <Record Type="UI.DataField">
+                  <PropertyValue Property="Value" Path="number"/>
+                </Record>
+                <Record Type="UI.DataField">
+                  <PropertyValue Property="Value" Path="mail_id"/>
+                </Record>
+                <Record Type="UI.DataField">
+                  <PropertyValue Property="Value" Path="fb_link"/>
+                </Record>
+              </Collection>
+            </PropertyValue>
+            <PropertyValue Property="Label" String="Contact Information"/>
+          </Record>
+        </Annotation>
+        <Annotation Term="UI.FieldGroup" Qualifier="GeneralCamp">
+          <Record Type="UI.FieldGroupType">
+            <PropertyValue Property="Data">
+              <Collection>
+                <Record Type="UI.DataField">
+                  <PropertyValue Property="Value" Path="title"/>
+                </Record>
+                <Record Type="UI.DataField">
+                  <PropertyValue Property="Value" Path="description"/>
+                </Record>
+                <Record Type="UI.DataField">
+                  <PropertyValue Property="Value" Path="category"/>
+                </Record>
+                <Record Type="UI.DataField">
+                  <PropertyValue Property="Value" Path="status"/>
+                </Record>
+                <Record Type="UI.DataField">
+                  <PropertyValue Property="Value" Path="start_date"/>
+                </Record>
+                <Record Type="UI.DataField">
+                  <PropertyValue Property="Value" Path="end_date"/>
+                </Record>
+              </Collection>
+            </PropertyValue>
+            <PropertyValue Property="Label" String="General Information"/>
+          </Record>
+        </Annotation>
+        <Annotation Term="UI.HeaderInfo">
+          <Record Type="UI.HeaderInfoType">
+            <PropertyValue Property="ImageUrl" Path="imageUrl"/>
+            <PropertyValue Property="Title">
+              <Record Type="UI.DataField">
+                <PropertyValue Property="Value" Path="title"/>
+              </Record>
+            </PropertyValue>
+            <PropertyValue Property="TypeName" String="Campaign"/>
+            <PropertyValue Property="TypeNamePlural" String="Campaigns"/>
+          </Record>
+        </Annotation>
+        <Annotation Term="UI.LineItem">
+          <Collection>
+            <Record Type="UI.DataField">
+              <PropertyValue Property="Value" Path="title"/>
+              <PropertyValue Property="Label" String="Title"/>
+            </Record>
+            <Record Type="UI.DataField">
+              <PropertyValue Property="Value" Path="description"/>
+              <PropertyValue Property="Label" String="Description"/>
+            </Record>
+            <Record Type="UI.DataField">
+              <PropertyValue Property="Value" Path="status"/>
+              <PropertyValue Property="Label" String="Status"/>
+            </Record>
+            <Record Type="UI.DataField">
+              <PropertyValue Property="Value" Path="category"/>
+              <PropertyValue Property="Label" String="Category"/>
+            </Record>
+            <Record Type="UI.DataField">
+              <PropertyValue Property="Value" Path="start_date"/>
+              <PropertyValue Property="Label" String="Start Date"/>
+            </Record>
+            <Record Type="UI.DataField">
+              <PropertyValue Property="Value" Path="location"/>
+              <PropertyValue Property="Label" String="Location"/>
+            </Record>
+          </Collection>
+        </Annotation>
+        <Annotation Term="UI.SelectionFields">
+          <Collection>
+            <PropertyPath>title</PropertyPath>
+            <PropertyPath>description</PropertyPath>
+            <PropertyPath>status</PropertyPath>
+            <PropertyPath>start_date</PropertyPath>
+            <PropertyPath>location</PropertyPath>
+            <PropertyPath>radius</PropertyPath>
+          </Collection>
+        </Annotation>
+      </Annotations>
+      <Annotations Target="CatalogService.Campaigns/createdAt" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+        <Annotation Term="Common.Label" String="Gecreëerd op"/>
+        <Annotation Term="Core.Computed" Bool="true"/>
+        <Annotation Term="Core.Immutable" Bool="true"/>
+        <Annotation Term="UI.HiddenFilter" Bool="true"/>
+      </Annotations>
+      <Annotations Target="CatalogService.Campaigns/createdBy" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+        <Annotation Term="Common.Label" String="Gecreëerd door"/>
+        <Annotation Term="Core.Computed" Bool="true"/>
+        <Annotation Term="Core.Description" String="Unieke ID van gebruiker"/>
+        <Annotation Term="Core.Immutable" Bool="true"/>
+        <Annotation Term="UI.HiddenFilter" Bool="true"/>
+      </Annotations>
+      <Annotations Target="CatalogService.Campaigns/modifiedAt" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+        <Annotation Term="Common.Label" String="Gewijzigd op"/>
+        <Annotation Term="Core.Computed" Bool="true"/>
+        <Annotation Term="UI.HiddenFilter" Bool="true"/>
+      </Annotations>
+      <Annotations Target="CatalogService.Campaigns/modifiedBy" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+        <Annotation Term="Common.Label" String="Gewijzigd door"/>
+        <Annotation Term="Core.Computed" Bool="true"/>
+        <Annotation Term="Core.Description" String="Unieke ID van gebruiker"/>
+        <Annotation Term="UI.HiddenFilter" Bool="true"/>
+      </Annotations>
+      <Annotations Target="CatalogService.Campaigns/title" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+        <Annotation Term="Common.Label" String="Name"/>
+      </Annotations>
+      <Annotations Target="CatalogService.Campaigns/description" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+        <Annotation Term="Common.Label" String="Description"/>
+      </Annotations>
+      <Annotations Target="CatalogService.Campaigns/fb_link" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+        <Annotation Term="Common.Label" String="Facebook Link"/>
+      </Annotations>
+      <Annotations Target="CatalogService.Campaigns/category" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+        <Annotation Term="Common.Label" String="Category"/>
+      </Annotations>
+      <Annotations Target="CatalogService.Campaigns/start_date" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+        <Annotation Term="Common.Label" String="Start Date"/>
+      </Annotations>
+      <Annotations Target="CatalogService.Campaigns/end_date" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+        <Annotation Term="Common.Label" String="End Date"/>
+      </Annotations>
+      <Annotations Target="CatalogService.Campaigns/location" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+        <Annotation Term="Common.Label" String="Location"/>
+      </Annotations>
+      <Annotations Target="CatalogService.Campaigns/person_name" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+        <Annotation Term="Common.Label" String="Name"/>
+      </Annotations>
+      <Annotations Target="CatalogService.Campaigns/number" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+        <Annotation Term="Common.Label" String="Phone"/>
+      </Annotations>
+      <Annotations Target="CatalogService.Campaigns/mail_id" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+        <Annotation Term="Common.Label" String="Email"/>
+      </Annotations>
+      <Annotations Target="CatalogService.Campaigns/campaign_image_url" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+        <Annotation Term="Common.Label" String="Image"/>
+      </Annotations>
+      <Annotations Target="CatalogService.Campaigns/radius" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+        <Annotation Term="Common.Label" String="Radius"/>
+        <Annotation Term="Common.ValueList">
+          <Record Type="Common.ValueListType">
+            <PropertyValue Property="CollectionPath" String="Radius"/>
+            <PropertyValue Property="Parameters">
+              <Collection>
+                <Record Type="Common.ValueListParameterInOut">
+                  <PropertyValue Property="LocalDataProperty" PropertyPath="radius"/>
+                  <PropertyValue Property="ValueListProperty" String="radius"/>
+                </Record>
+              </Collection>
+            </PropertyValue>
+            <PropertyValue Property="SearchSupported" Bool="true"/>
+          </Record>
+        </Annotation>
+      </Annotations>
+      <Annotations Target="CatalogService.Campaigns/status" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+        <Annotation Term="Common.Label" String="Status"/>
+        <Annotation Term="Common.ValueList">
+          <Record Type="Common.ValueListType">
+            <PropertyValue Property="CollectionPath" String="Status"/>
+            <PropertyValue Property="Parameters">
+              <Collection>
+                <Record Type="Common.ValueListParameterInOut">
+                  <PropertyValue Property="LocalDataProperty" PropertyPath="status"/>
+                  <PropertyValue Property="ValueListProperty" String="status"/>
+                </Record>
+              </Collection>
+            </PropertyValue>
+            <PropertyValue Property="SearchSupported" Bool="true"/>
+          </Record>
+        </Annotation>
+      </Annotations>
+      <Annotations Target="CatalogService.Campaigns/imageType" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+        <Annotation Term="Core.IsMediaType" Bool="true"/>
+      </Annotations>
+      <Annotations Target="CatalogService.CampaignsALP" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+        <Annotation Term="Aggregation.ApplySupported">
+          <Record Type="Aggregation.ApplySupportedType">
+            <PropertyValue Property="PropertyRestrictions" Bool="true"/>
+          </Record>
+        </Annotation>
+        <Annotation Term="UI.Chart">
+          <Record Type="UI.ChartDefinitionType">
+            <PropertyValue Property="ChartType" EnumMember="UI.ChartType/Donut"/>
+            <PropertyValue Property="DimensionAttributes">
+              <Collection>
+                <Record Type="UI.ChartDimensionAttributeType">
+                  <PropertyValue Property="Dimension" PropertyPath="locality"/>
+                  <PropertyValue Property="Role" EnumMember="UI.ChartDimensionRoleType/Category"/>
+                </Record>
+              </Collection>
+            </PropertyValue>
+            <PropertyValue Property="Dimensions">
+              <Collection>
+                <PropertyPath>locality</PropertyPath>
+              </Collection>
+            </PropertyValue>
+            <PropertyValue Property="MeasureAttributes">
+              <Collection>
+                <Record Type="UI.ChartMeasureAttributeType">
+                  <PropertyValue Property="Role" EnumMember="UI.ChartMeasureRoleType/valueAxis"/>
+                  <PropertyValue Property="Measure" PropertyPath="count"/>
+                </Record>
+              </Collection>
+            </PropertyValue>
+            <PropertyValue Property="Measures">
+              <Collection>
+                <PropertyPath>count</PropertyPath>
+              </Collection>
+            </PropertyValue>
+          </Record>
+        </Annotation>
+        <Annotation Term="UI.LineItem">
+          <Collection>
+            <Record Type="UI.DataField">
+              <PropertyValue Property="Value" Path="locality"/>
+              <PropertyValue Property="Label" String="Locality"/>
+            </Record>
+            <Record Type="UI.DataField">
+              <PropertyValue Property="Value" Path="city"/>
+              <PropertyValue Property="Label" String="City"/>
+            </Record>
+            <Record Type="UI.DataField">
+              <PropertyValue Property="Value" Path="category"/>
+              <PropertyValue Property="Label" String="Category"/>
+            </Record>
+          </Collection>
+        </Annotation>
+      </Annotations>
+      <Annotations Target="CatalogService.CampaignsALP/ID__" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+        <Annotation Term="UI.Hidden" Bool="true"/>
+      </Annotations>
+      <Annotations Target="CatalogService.CampaignsALP/ID" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+        <Annotation Term="Common.Label" String="Campaings"/>
+      </Annotations>
+      <Annotations Target="CatalogService.CampaignsALP/count" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+        <Annotation Term="Aggregation.default" EnumMember="Aggregation.defaultType/COUNT"/>
+        <Annotation Term="Analytics.Measure" Bool="true"/>
+        <Annotation Term="Common.Label" String="Campaings"/>
+      </Annotations>
+      <Annotations Target="CatalogService.CampaignsALP/locality" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+        <Annotation Term="Analytics.Dimension" Bool="true"/>
+        <Annotation Term="Common.Label" String="Locality"/>
+      </Annotations>
+      <Annotations Target="CatalogService.CampaignsALP/city" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+        <Annotation Term="Analytics.Dimension" Bool="true"/>
+        <Annotation Term="Common.Label" String="City"/>
+      </Annotations>
+      <Annotations Target="CatalogService.CampaignsALP/state" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+        <Annotation Term="Analytics.Dimension" Bool="true"/>
+        <Annotation Term="Common.Label" String="State"/>
+      </Annotations>
+      <Annotations Target="CatalogService.CampaignsALP/category" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+        <Annotation Term="Analytics.Dimension" Bool="true"/>
+        <Annotation Term="Common.Label" String="Category"/>
+      </Annotations>
+      <Annotations Target="CatalogService.Countries" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+        <Annotation Term="UI.Identification">
+          <Collection>
+            <Record Type="UI.DataField">
+              <PropertyValue Property="Value" Path="name"/>
+            </Record>
+          </Collection>
+        </Annotation>
+      </Annotations>
+      <Annotations Target="CatalogService.Countries/name" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+        <Annotation Term="Common.Label" String="Naam"/>
+      </Annotations>
+      <Annotations Target="CatalogService.Countries/descr" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+        <Annotation Term="Common.Label" String="Omschrijving"/>
+      </Annotations>
+      <Annotations Target="CatalogService.Countries/code" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+        <Annotation Term="Common.Label" String="Landcode"/>
+      </Annotations>
+      <Annotations Target="CatalogService.Countries_texts/name" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+        <Annotation Term="Common.Label" String="Naam"/>
+      </Annotations>
+      <Annotations Target="CatalogService.Countries_texts/descr" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+        <Annotation Term="Common.Label" String="Omschrijving"/>
+      </Annotations>
+      <Annotations Target="CatalogService.Countries_texts/code" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+        <Annotation Term="Common.Label" String="Landcode"/>
+      </Annotations>
+      <Annotations Target="CatalogService.EntityContainer/Genders" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+        <Annotation Term="Capabilities.DeleteRestrictions">
+          <Record Type="Capabilities.DeleteRestrictionsType">
+            <PropertyValue Property="Deletable" Bool="false"/>
+          </Record>
+        </Annotation>
+        <Annotation Term="Capabilities.InsertRestrictions">
+          <Record Type="Capabilities.InsertRestrictionsType">
+            <PropertyValue Property="Insertable" Bool="false"/>
+          </Record>
+        </Annotation>
+        <Annotation Term="Capabilities.UpdateRestrictions">
+          <Record Type="Capabilities.UpdateRestrictionsType">
+            <PropertyValue Property="Updatable" Bool="false"/>
+          </Record>
+        </Annotation>
+      </Annotations>
+      <Annotations Target="CatalogService.Jobs" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+        <Annotation Term="UI.Facets">
+          <Collection>
+            <Record Type="UI.ReferenceFacet">
+              <PropertyValue Property="Label" String="General Information"/>
+              <PropertyValue Property="Target" AnnotationPath="@UI.FieldGroup#GeneralInformation1"/>
+            </Record>
+            <Record Type="UI.ReferenceFacet">
+              <PropertyValue Property="Label" String="Location"/>
+              <PropertyValue Property="Target" AnnotationPath="@UI.FieldGroup#Address1"/>
+            </Record>
+            <Record Type="UI.ReferenceFacet">
+              <PropertyValue Property="Label" String="Contact Information"/>
+              <PropertyValue Property="Target" AnnotationPath="@UI.FieldGroup#Contact1"/>
+            </Record>
+            <Record Type="UI.ReferenceFacet">
+              <PropertyValue Property="Label" String="Intrested"/>
+              <PropertyValue Property="Target" AnnotationPath="Interested_workers/@UI.LineItem"/>
+            </Record>
+          </Collection>
+        </Annotation>
+        <Annotation Term="UI.FieldGroup" Qualifier="Address1">
+          <Record Type="UI.FieldGroupType">
+            <PropertyValue Property="Data">
+              <Collection>
+                <Record Type="UI.DataField">
+                  <PropertyValue Property="Value" Path="locality"/>
+                </Record>
+                <Record Type="UI.DataField">
+                  <PropertyValue Property="Value" Path="city"/>
+                </Record>
+                <Record Type="UI.DataField">
+                  <PropertyValue Property="Value" Path="state"/>
+                </Record>
+                <Record Type="UI.DataField">
+                  <PropertyValue Property="Value" Path="country"/>
+                </Record>
+              </Collection>
+            </PropertyValue>
+            <PropertyValue Property="Label" String="Location"/>
+          </Record>
+        </Annotation>
+        <Annotation Term="UI.FieldGroup" Qualifier="Contact1">
+          <Record Type="UI.FieldGroupType">
+            <PropertyValue Property="Data">
+              <Collection>
+                <Record Type="UI.DataField">
+                  <PropertyValue Property="Value" Path="phone"/>
+                </Record>
+              </Collection>
+            </PropertyValue>
+            <PropertyValue Property="Label" String="Contact Information"/>
+          </Record>
+        </Annotation>
+        <Annotation Term="UI.FieldGroup" Qualifier="GeneralInformation1">
+          <Record Type="UI.FieldGroupType">
+            <PropertyValue Property="Data">
+              <Collection>
+                <Record Type="UI.DataField">
+                  <PropertyValue Property="Value" Path="title"/>
+                </Record>
+                <Record Type="UI.DataField">
+                  <PropertyValue Property="Value" Path="description"/>
+                </Record>
+                <Record Type="UI.DataField">
+                  <PropertyValue Property="Value" Path="skill"/>
+                </Record>
+                <Record Type="UI.DataField">
+                  <PropertyValue Property="Value" Path="status"/>
+                </Record>
+                <Record Type="UI.DataField">
+                  <PropertyValue Property="Value" Path="salary_range"/>
+                </Record>
+                <Record Type="UI.DataField">
+                  <PropertyValue Property="Value" Path="openings"/>
+                </Record>
+                <Record Type="UI.DataField">
+                  <PropertyValue Property="Value" Path="exper_in_months"/>
+                </Record>
+                <Record Type="UI.DataField">
+                  <PropertyValue Property="Value" Path="start_date"/>
+                </Record>
+                <Record Type="UI.DataField">
+                  <PropertyValue Property="Value" Path="end_date"/>
+                </Record>
+              </Collection>
+            </PropertyValue>
+            <PropertyValue Property="Label" String="General Information"/>
+          </Record>
+        </Annotation>
+        <Annotation Term="UI.HeaderInfo">
+          <Record Type="UI.HeaderInfoType">
+            <PropertyValue Property="ImageUrl" Path="imageUrl"/>
+            <PropertyValue Property="Title">
+              <Record Type="UI.DataField">
+                <PropertyValue Property="Value" Path="title"/>
+              </Record>
+            </PropertyValue>
+            <PropertyValue Property="TypeName" String="Job"/>
+            <PropertyValue Property="TypeNamePlural" String="Jobs"/>
+          </Record>
+        </Annotation>
+        <Annotation Term="UI.LineItem">
+          <Collection>
+            <Record Type="UI.DataField">
+              <PropertyValue Property="Value" Path="title"/>
+              <PropertyValue Property="Label" String="Title"/>
+            </Record>
+            <Record Type="UI.DataField">
+              <PropertyValue Property="Value" Path="description"/>
+              <PropertyValue Property="Label" String="Description"/>
+            </Record>
+            <Record Type="UI.DataField">
+              <PropertyValue Property="Value" Path="status"/>
+              <PropertyValue Property="Label" String="Status"/>
+            </Record>
+            <Record Type="UI.DataField">
+              <PropertyValue Property="Value" Path="skill"/>
+              <PropertyValue Property="Label" String="Skill"/>
+            </Record>
+            <Record Type="UI.DataField">
+              <PropertyValue Property="Value" Path="exper_in_months"/>
+              <PropertyValue Property="Label" String="Experience in months"/>
+            </Record>
+            <Record Type="UI.DataField">
+              <PropertyValue Property="Value" Path="city"/>
+              <PropertyValue Property="Label" String="City"/>
+            </Record>
+            <Record Type="UI.DataField">
+              <PropertyValue Property="Value" Path="start_date"/>
+            </Record>
+            <Record Type="UI.DataField">
+              <PropertyValue Property="Value" Path="end_date"/>
+            </Record>
+          </Collection>
+        </Annotation>
+        <Annotation Term="UI.SelectionFields">
+          <Collection>
+            <PropertyPath>title</PropertyPath>
+            <PropertyPath>skill</PropertyPath>
+            <PropertyPath>exper_in_months</PropertyPath>
+            <PropertyPath>locality</PropertyPath>
+            <PropertyPath>city</PropertyPath>
+            <PropertyPath>radius</PropertyPath>
+          </Collection>
+        </Annotation>
+      </Annotations>
+      <Annotations Target="CatalogService.Jobs/createdAt" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+        <Annotation Term="Common.Label" String="Gecreëerd op"/>
+        <Annotation Term="Core.Computed" Bool="true"/>
+        <Annotation Term="Core.Immutable" Bool="true"/>
+        <Annotation Term="UI.HiddenFilter" Bool="true"/>
+      </Annotations>
+      <Annotations Target="CatalogService.Jobs/createdBy" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+        <Annotation Term="Common.Label" String="Gecreëerd door"/>
+        <Annotation Term="Core.Computed" Bool="true"/>
+        <Annotation Term="Core.Description" String="Unieke ID van gebruiker"/>
+        <Annotation Term="Core.Immutable" Bool="true"/>
+        <Annotation Term="UI.HiddenFilter" Bool="true"/>
+      </Annotations>
+      <Annotations Target="CatalogService.Jobs/modifiedAt" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+        <Annotation Term="Common.Label" String="Gewijzigd op"/>
+        <Annotation Term="Core.Computed" Bool="true"/>
+        <Annotation Term="UI.HiddenFilter" Bool="true"/>
+      </Annotations>
+      <Annotations Target="CatalogService.Jobs/modifiedBy" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+        <Annotation Term="Common.Label" String="Gewijzigd door"/>
+        <Annotation Term="Core.Computed" Bool="true"/>
+        <Annotation Term="Core.Description" String="Unieke ID van gebruiker"/>
+        <Annotation Term="UI.HiddenFilter" Bool="true"/>
+      </Annotations>
+      <Annotations Target="CatalogService.Jobs/title" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+        <Annotation Term="Common.Label" String="Title"/>
+      </Annotations>
+      <Annotations Target="CatalogService.Jobs/description" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+        <Annotation Term="Common.Label" String="Description"/>
+      </Annotations>
+      <Annotations Target="CatalogService.Jobs/skill" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+        <Annotation Term="Common.Label" String="Skill"/>
+        <Annotation Term="Common.ValueList">
+          <Record Type="Common.ValueListType">
+            <PropertyValue Property="CollectionPath" String="Skill_types"/>
+            <PropertyValue Property="Parameters">
+              <Collection>
+                <Record Type="Common.ValueListParameterInOut">
+                  <PropertyValue Property="LocalDataProperty" PropertyPath="skill"/>
+                  <PropertyValue Property="ValueListProperty" String="skill"/>
+                </Record>
+              </Collection>
+            </PropertyValue>
+            <PropertyValue Property="SearchSupported" Bool="true"/>
+          </Record>
+        </Annotation>
+      </Annotations>
+      <Annotations Target="CatalogService.Jobs/exper_in_months" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+        <Annotation Term="Common.Label" String="Experience in months"/>
+      </Annotations>
+      <Annotations Target="CatalogService.Jobs/locality" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+        <Annotation Term="Common.Label" String="Locality"/>
+      </Annotations>
+      <Annotations Target="CatalogService.Jobs/salary_range" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+        <Annotation Term="Common.Label" String="Salary"/>
+      </Annotations>
+      <Annotations Target="CatalogService.Jobs/openings" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+        <Annotation Term="Common.Label" String="Openings"/>
+      </Annotations>
+      <Annotations Target="CatalogService.Jobs/city" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+        <Annotation Term="Common.Label" String="City"/>
+      </Annotations>
+      <Annotations Target="CatalogService.Jobs/state" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+        <Annotation Term="Common.Label" String="State"/>
+      </Annotations>
+      <Annotations Target="CatalogService.Jobs/country" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+        <Annotation Term="Common.Label" String="Country"/>
+        <Annotation Term="Core.Description" String="Landcode zoals gespecificeerd door ISO 3166-1"/>
+      </Annotations>
+      <Annotations Target="CatalogService.Jobs/status" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+        <Annotation Term="Common.Label" String="Status"/>
+        <Annotation Term="Common.ValueList">
+          <Record Type="Common.ValueListType">
+            <PropertyValue Property="CollectionPath" String="Status"/>
+            <PropertyValue Property="Parameters">
+              <Collection>
+                <Record Type="Common.ValueListParameterInOut">
+                  <PropertyValue Property="LocalDataProperty" PropertyPath="status"/>
+                  <PropertyValue Property="ValueListProperty" String="status"/>
+                </Record>
+              </Collection>
+            </PropertyValue>
+            <PropertyValue Property="SearchSupported" Bool="true"/>
+          </Record>
+        </Annotation>
+      </Annotations>
+      <Annotations Target="CatalogService.Jobs/phone" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+        <Annotation Term="Common.Label" String="Phone"/>
+      </Annotations>
+      <Annotations Target="CatalogService.Jobs/start_date" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+        <Annotation Term="Common.Label" String="Start Date"/>
+      </Annotations>
+      <Annotations Target="CatalogService.Jobs/end_date" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+        <Annotation Term="Common.Label" String="End Date"/>
+      </Annotations>
+      <Annotations Target="CatalogService.Jobs/imageType" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+        <Annotation Term="Core.IsMediaType" Bool="true"/>
+      </Annotations>
+      <Annotations Target="CatalogService.Jobs/country_code" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+        <Annotation Term="Common.Label" String="Country"/>
+        <Annotation Term="Common.ValueList">
+          <Record Type="Common.ValueListType">
+            <PropertyValue Property="Label" String="Country"/>
+            <PropertyValue Property="CollectionPath" String="Countries"/>
+            <PropertyValue Property="Parameters">
+              <Collection>
+                <Record Type="Common.ValueListParameterInOut">
+                  <PropertyValue Property="LocalDataProperty" PropertyPath="country_code"/>
+                  <PropertyValue Property="ValueListProperty" String="code"/>
+                </Record>
+                <Record Type="Common.ValueListParameterDisplayOnly">
+                  <PropertyValue Property="ValueListProperty" String="name"/>
+                </Record>
+              </Collection>
+            </PropertyValue>
+          </Record>
+        </Annotation>
+        <Annotation Term="Core.Description" String="Landcode zoals gespecificeerd door ISO 3166-1"/>
+      </Annotations>
+      <Annotations Target="CatalogService.JobsALP" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+        <Annotation Term="Aggregation.ApplySupported">
+          <Record Type="Aggregation.ApplySupportedType">
+            <PropertyValue Property="PropertyRestrictions" Bool="true"/>
+          </Record>
+        </Annotation>
+        <Annotation Term="UI.Chart">
+          <Record Type="UI.ChartDefinitionType">
+            <PropertyValue Property="ChartType" EnumMember="UI.ChartType/ColumnDual"/>
+            <PropertyValue Property="DimensionAttributes">
+              <Collection>
+                <Record Type="UI.ChartDimensionAttributeType">
+                  <PropertyValue Property="Dimension" PropertyPath="skill"/>
+                  <PropertyValue Property="Role" EnumMember="UI.ChartDimensionRoleType/Category"/>
+                </Record>
+                <Record Type="UI.ChartDimensionAttributeType">
+                  <PropertyValue Property="Dimension" PropertyPath="locality"/>
+                  <PropertyValue Property="Role" EnumMember="UI.ChartDimensionRoleType/Category2"/>
+                </Record>
+              </Collection>
+            </PropertyValue>
+            <PropertyValue Property="Dimensions">
+              <Collection>
+                <PropertyPath>skill</PropertyPath>
+                <PropertyPath>locality</PropertyPath>
+              </Collection>
+            </PropertyValue>
+            <PropertyValue Property="MeasureAttributes">
+              <Collection>
+                <Record Type="UI.ChartMeasureAttributeType">
+                  <PropertyValue Property="Role" EnumMember="UI.ChartMeasureRoleType/valueAxis"/>
+                  <PropertyValue Property="Measure" PropertyPath="count"/>
+                </Record>
+              </Collection>
+            </PropertyValue>
+            <PropertyValue Property="Measures">
+              <Collection>
+                <PropertyPath>count</PropertyPath>
+              </Collection>
+            </PropertyValue>
+          </Record>
+        </Annotation>
+        <Annotation Term="UI.LineItem">
+          <Collection>
+            <Record Type="UI.DataField">
+              <PropertyValue Property="Value" Path="locality"/>
+              <PropertyValue Property="Label" String="Locality"/>
+            </Record>
+            <Record Type="UI.DataField">
+              <PropertyValue Property="Value" Path="city"/>
+              <PropertyValue Property="Label" String="City"/>
+            </Record>
+            <Record Type="UI.DataField">
+              <PropertyValue Property="Value" Path="skill"/>
+              <PropertyValue Property="Label" String="Skill"/>
+            </Record>
+          </Collection>
+        </Annotation>
+      </Annotations>
+      <Annotations Target="CatalogService.JobsALP/ID__" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+        <Annotation Term="UI.Hidden" Bool="true"/>
+      </Annotations>
+      <Annotations Target="CatalogService.JobsALP/ID" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+        <Annotation Term="Common.Label" String="Jobs"/>
+      </Annotations>
+      <Annotations Target="CatalogService.JobsALP/count" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+        <Annotation Term="Aggregation.default" EnumMember="Aggregation.defaultType/COUNT"/>
+        <Annotation Term="Analytics.Measure" Bool="true"/>
+        <Annotation Term="Common.Label" String="Jobs"/>
+      </Annotations>
+      <Annotations Target="CatalogService.JobsALP/locality" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+        <Annotation Term="Analytics.Dimension" Bool="true"/>
+        <Annotation Term="Common.Label" String="Locality"/>
+      </Annotations>
+      <Annotations Target="CatalogService.JobsALP/city" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+        <Annotation Term="Analytics.Dimension" Bool="true"/>
+        <Annotation Term="Common.Label" String="City"/>
+      </Annotations>
+      <Annotations Target="CatalogService.JobsALP/state" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+        <Annotation Term="Analytics.Dimension" Bool="true"/>
+        <Annotation Term="Common.Label" String="State"/>
+      </Annotations>
+      <Annotations Target="CatalogService.JobsALP/skill" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+        <Annotation Term="Analytics.Dimension" Bool="true"/>
+        <Annotation Term="Common.Label" String="Skill"/>
+      </Annotations>
+      <Annotations Target="CatalogService.NGO" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+        <Annotation Term="UI.Facets">
+          <Collection>
+            <Record Type="UI.ReferenceFacet">
+              <PropertyValue Property="Label" String="General Information"/>
+              <PropertyValue Property="Target" AnnotationPath="@UI.FieldGroup#GeneralInformationNGO"/>
+            </Record>
+            <Record Type="UI.ReferenceFacet">
+              <PropertyValue Property="Label" String="Address"/>
+              <PropertyValue Property="Target" AnnotationPath="@UI.FieldGroup#AddressNGO"/>
+            </Record>
+            <Record Type="UI.ReferenceFacet">
+              <PropertyValue Property="Label" String="Contact Information"/>
+              <PropertyValue Property="Target" AnnotationPath="@UI.FieldGroup#ContactNGO"/>
+            </Record>
+            <Record Type="UI.ReferenceFacet">
+              <PropertyValue Property="Label" String="Campaigns"/>
+              <PropertyValue Property="Target" AnnotationPath="Campaigns/@UI.LineItem"/>
+            </Record>
+          </Collection>
+        </Annotation>
+        <Annotation Term="UI.FieldGroup" Qualifier="AddressNGO">
+          <Record Type="UI.FieldGroupType">
+            <PropertyValue Property="Data">
+              <Collection>
+                <Record Type="UI.DataField">
+                  <PropertyValue Property="Value" Path="locality"/>
+                </Record>
+                <Record Type="UI.DataField">
+                  <PropertyValue Property="Value" Path="city"/>
+                </Record>
+                <Record Type="UI.DataField">
+                  <PropertyValue Property="Value" Path="state"/>
+                </Record>
+                <Record Type="UI.DataField">
+                  <PropertyValue Property="Value" Path="pin_code"/>
+                </Record>
+              </Collection>
+            </PropertyValue>
+            <PropertyValue Property="Label" String="Address"/>
+          </Record>
+        </Annotation>
+        <Annotation Term="UI.FieldGroup" Qualifier="ContactNGO">
+          <Record Type="UI.FieldGroupType">
+            <PropertyValue Property="Data">
+              <Collection>
+                <Record Type="UI.DataField">
+                  <PropertyValue Property="Value" Path="phone"/>
+                </Record>
+                <Record Type="UI.DataField">
+                  <PropertyValue Property="Value" Path="web_id"/>
+                </Record>
+              </Collection>
+            </PropertyValue>
+            <PropertyValue Property="Label" String="Contact Information"/>
+          </Record>
+        </Annotation>
+        <Annotation Term="UI.FieldGroup" Qualifier="GeneralInformationNGO">
+          <Record Type="UI.FieldGroupType">
+            <PropertyValue Property="Data">
+              <Collection>
+                <Record Type="UI.DataField">
+                  <PropertyValue Property="Value" Path="name"/>
+                </Record>
+                <Record Type="UI.DataField">
+                  <PropertyValue Property="Value" Path="ngo_registration_number"/>
+                </Record>
+                <Record Type="UI.DataField">
+                  <PropertyValue Property="Value" Path="category"/>
+                </Record>
+              </Collection>
+            </PropertyValue>
+            <PropertyValue Property="Label" String="General Information"/>
+          </Record>
+        </Annotation>
+        <Annotation Term="UI.HeaderInfo">
+          <Record Type="UI.HeaderInfoType">
+            <PropertyValue Property="ImageUrl" Path="imageUrl"/>
+            <PropertyValue Property="Title">
+              <Record Type="UI.DataField">
+                <PropertyValue Property="Value" Path="name"/>
+              </Record>
+            </PropertyValue>
+            <PropertyValue Property="TypeName" String="NGO"/>
+            <PropertyValue Property="TypeNamePlural" String="NGO's"/>
+          </Record>
+        </Annotation>
+        <Annotation Term="UI.LineItem">
+          <Collection>
+            <Record Type="UI.DataField">
+              <PropertyValue Property="Value" Path="name"/>
+              <PropertyValue Property="Label" String="Name"/>
+            </Record>
+            <Record Type="UI.DataField">
+              <PropertyValue Property="Value" Path="category"/>
+              <PropertyValue Property="Label" String="Category"/>
+            </Record>
+            <Record Type="UI.DataField">
+              <PropertyValue Property="Value" Path="city"/>
+              <PropertyValue Property="Label" String="City"/>
+            </Record>
+            <Record Type="UI.DataField">
+              <PropertyValue Property="Value" Path="phone"/>
+              <PropertyValue Property="Label" String="Phone"/>
+            </Record>
+            <Record Type="UI.DataField">
+              <PropertyValue Property="Value" Path="web_id"/>
+              <PropertyValue Property="Label" String="Website"/>
+            </Record>
+          </Collection>
+        </Annotation>
+        <Annotation Term="UI.SelectionFields">
+          <Collection>
+            <PropertyPath>name</PropertyPath>
+            <PropertyPath>category</PropertyPath>
+            <PropertyPath>city</PropertyPath>
+            <PropertyPath>phone</PropertyPath>
+          </Collection>
+        </Annotation>
+      </Annotations>
+      <Annotations Target="CatalogService.NGO/createdAt" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+        <Annotation Term="Common.Label" String="Gecreëerd op"/>
+        <Annotation Term="Core.Computed" Bool="true"/>
+        <Annotation Term="Core.Immutable" Bool="true"/>
+        <Annotation Term="UI.HiddenFilter" Bool="true"/>
+      </Annotations>
+      <Annotations Target="CatalogService.NGO/createdBy" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+        <Annotation Term="Common.Label" String="Gecreëerd door"/>
+        <Annotation Term="Core.Computed" Bool="true"/>
+        <Annotation Term="Core.Description" String="Unieke ID van gebruiker"/>
+        <Annotation Term="Core.Immutable" Bool="true"/>
+        <Annotation Term="UI.HiddenFilter" Bool="true"/>
+      </Annotations>
+      <Annotations Target="CatalogService.NGO/modifiedAt" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+        <Annotation Term="Common.Label" String="Gewijzigd op"/>
+        <Annotation Term="Core.Computed" Bool="true"/>
+        <Annotation Term="UI.HiddenFilter" Bool="true"/>
+      </Annotations>
+      <Annotations Target="CatalogService.NGO/modifiedBy" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+        <Annotation Term="Common.Label" String="Gewijzigd door"/>
+        <Annotation Term="Core.Computed" Bool="true"/>
+        <Annotation Term="Core.Description" String="Unieke ID van gebruiker"/>
+        <Annotation Term="UI.HiddenFilter" Bool="true"/>
+      </Annotations>
+      <Annotations Target="CatalogService.NGO/ngo_registration_number" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+        <Annotation Term="Common.Label" String="NGO Registration Number"/>
+      </Annotations>
+      <Annotations Target="CatalogService.NGO/name" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+        <Annotation Term="Common.Label" String="Name"/>
+      </Annotations>
+      <Annotations Target="CatalogService.NGO/phone" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+        <Annotation Term="Common.Label" String="Phone"/>
+      </Annotations>
+      <Annotations Target="CatalogService.NGO/category" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+        <Annotation Term="Common.Label" String="Category"/>
+      </Annotations>
+      <Annotations Target="CatalogService.NGO/locality" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+        <Annotation Term="Common.Label" String="Locality"/>
+      </Annotations>
+      <Annotations Target="CatalogService.NGO/city" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+        <Annotation Term="Common.Label" String="City"/>
+      </Annotations>
+      <Annotations Target="CatalogService.NGO/state" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+        <Annotation Term="Common.Label" String="State"/>
+      </Annotations>
+      <Annotations Target="CatalogService.NGO/country" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+        <Annotation Term="Common.Label" String="Land"/>
+        <Annotation Term="Core.Description" String="Landcode zoals gespecificeerd door ISO 3166-1"/>
+      </Annotations>
+      <Annotations Target="CatalogService.NGO/pin_code" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+        <Annotation Term="Common.Label" String="Pin Code"/>
+      </Annotations>
+      <Annotations Target="CatalogService.NGO/web_id" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+        <Annotation Term="Common.Label" String="Website"/>
+      </Annotations>
+      <Annotations Target="CatalogService.NGO/radius" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+        <Annotation Term="Common.Label" String="Radius"/>
+        <Annotation Term="Common.ValueList">
+          <Record Type="Common.ValueListType">
+            <PropertyValue Property="CollectionPath" String="Radius"/>
+            <PropertyValue Property="Parameters">
+              <Collection>
+                <Record Type="Common.ValueListParameterInOut">
+                  <PropertyValue Property="LocalDataProperty" PropertyPath="radius"/>
+                  <PropertyValue Property="ValueListProperty" String="radius"/>
+                </Record>
+              </Collection>
+            </PropertyValue>
+            <PropertyValue Property="SearchSupported" Bool="true"/>
+          </Record>
+        </Annotation>
+      </Annotations>
+      <Annotations Target="CatalogService.NGO/imageType" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+        <Annotation Term="Core.IsMediaType" Bool="true"/>
+      </Annotations>
+      <Annotations Target="CatalogService.NGO/country_code" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+        <Annotation Term="Common.Label" String="Land"/>
+        <Annotation Term="Common.ValueList">
+          <Record Type="Common.ValueListType">
+            <PropertyValue Property="Label" String="Land"/>
+            <PropertyValue Property="CollectionPath" String="Countries"/>
+            <PropertyValue Property="Parameters">
+              <Collection>
+                <Record Type="Common.ValueListParameterInOut">
+                  <PropertyValue Property="LocalDataProperty" PropertyPath="country_code"/>
+                  <PropertyValue Property="ValueListProperty" String="code"/>
+                </Record>
+                <Record Type="Common.ValueListParameterDisplayOnly">
+                  <PropertyValue Property="ValueListProperty" String="name"/>
+                </Record>
+              </Collection>
+            </PropertyValue>
+          </Record>
+        </Annotation>
+        <Annotation Term="Core.Description" String="Landcode zoals gespecificeerd door ISO 3166-1"/>
+      </Annotations>
+      <Annotations Target="CatalogService.NGOsALP" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+        <Annotation Term="Aggregation.ApplySupported">
+          <Record Type="Aggregation.ApplySupportedType">
+            <PropertyValue Property="PropertyRestrictions" Bool="true"/>
+          </Record>
+        </Annotation>
+        <Annotation Term="UI.Chart">
+          <Record Type="UI.ChartDefinitionType">
+            <PropertyValue Property="ChartType" EnumMember="UI.ChartType/Pie"/>
+            <PropertyValue Property="DimensionAttributes">
+              <Collection>
+                <Record Type="UI.ChartDimensionAttributeType">
+                  <PropertyValue Property="Dimension" PropertyPath="locality"/>
+                  <PropertyValue Property="Role" EnumMember="UI.ChartDimensionRoleType/Category"/>
+                </Record>
+              </Collection>
+            </PropertyValue>
+            <PropertyValue Property="Dimensions">
+              <Collection>
+                <PropertyPath>locality</PropertyPath>
+              </Collection>
+            </PropertyValue>
+            <PropertyValue Property="MeasureAttributes">
+              <Collection>
+                <Record Type="UI.ChartMeasureAttributeType">
+                  <PropertyValue Property="Role" EnumMember="UI.ChartMeasureRoleType/valueAxis"/>
+                  <PropertyValue Property="Measure" PropertyPath="count"/>
+                </Record>
+              </Collection>
+            </PropertyValue>
+            <PropertyValue Property="Measures">
+              <Collection>
+                <PropertyPath>count</PropertyPath>
+              </Collection>
+            </PropertyValue>
+          </Record>
+        </Annotation>
+        <Annotation Term="UI.LineItem">
+          <Collection>
+            <Record Type="UI.DataField">
+              <PropertyValue Property="Value" Path="locality"/>
+              <PropertyValue Property="Label" String="Locality"/>
+            </Record>
+            <Record Type="UI.DataField">
+              <PropertyValue Property="Value" Path="city"/>
+              <PropertyValue Property="Label" String="City"/>
+            </Record>
+            <Record Type="UI.DataField">
+              <PropertyValue Property="Value" Path="category"/>
+              <PropertyValue Property="Label" String="Category"/>
+            </Record>
+          </Collection>
+        </Annotation>
+      </Annotations>
+      <Annotations Target="CatalogService.NGOsALP/ID__" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+        <Annotation Term="UI.Hidden" Bool="true"/>
+      </Annotations>
+      <Annotations Target="CatalogService.NGOsALP/ID" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+        <Annotation Term="Common.Label" String="NGOs"/>
+      </Annotations>
+      <Annotations Target="CatalogService.NGOsALP/count" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+        <Annotation Term="Aggregation.default" EnumMember="Aggregation.defaultType/COUNT"/>
+        <Annotation Term="Analytics.Measure" Bool="true"/>
+        <Annotation Term="Common.Label" String="NGOs"/>
+      </Annotations>
+      <Annotations Target="CatalogService.NGOsALP/locality" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+        <Annotation Term="Analytics.Dimension" Bool="true"/>
+        <Annotation Term="Common.Label" String="Locality"/>
+      </Annotations>
+      <Annotations Target="CatalogService.NGOsALP/city" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+        <Annotation Term="Analytics.Dimension" Bool="true"/>
+        <Annotation Term="Common.Label" String="City"/>
+      </Annotations>
+      <Annotations Target="CatalogService.NGOsALP/state" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+        <Annotation Term="Analytics.Dimension" Bool="true"/>
+        <Annotation Term="Common.Label" String="State"/>
+      </Annotations>
+      <Annotations Target="CatalogService.NGOsALP/category" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+        <Annotation Term="Analytics.Dimension" Bool="true"/>
+        <Annotation Term="Common.Label" String="Category"/>
+      </Annotations>
+      <Annotations Target="CatalogService.EntityContainer/Radius" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+        <Annotation Term="Capabilities.DeleteRestrictions">
+          <Record Type="Capabilities.DeleteRestrictionsType">
+            <PropertyValue Property="Deletable" Bool="false"/>
+          </Record>
+        </Annotation>
+        <Annotation Term="Capabilities.InsertRestrictions">
+          <Record Type="Capabilities.InsertRestrictionsType">
+            <PropertyValue Property="Insertable" Bool="false"/>
+          </Record>
+        </Annotation>
+        <Annotation Term="Capabilities.UpdateRestrictions">
+          <Record Type="Capabilities.UpdateRestrictionsType">
+            <PropertyValue Property="Updatable" Bool="false"/>
+          </Record>
+        </Annotation>
+      </Annotations>
+      <Annotations Target="CatalogService.Skill_details" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+        <Annotation Term="UI.Facets">
+          <Collection>
+            <Record Type="UI.ReferenceFacet">
+              <PropertyValue Property="Label" String="Skills"/>
+              <PropertyValue Property="Target" AnnotationPath="@UI.FieldGroup#Experience"/>
+            </Record>
+          </Collection>
+        </Annotation>
+        <Annotation Term="UI.FieldGroup" Qualifier="Experience">
+          <Record Type="UI.FieldGroupType">
+            <PropertyValue Property="Data">
+              <Collection>
+                <Record Type="UI.DataField">
+                  <PropertyValue Property="Value" Path="skill"/>
+                  <PropertyValue Property="Label" String="Skill"/>
+                </Record>
+                <Record Type="UI.DataField">
+                  <PropertyValue Property="Value" Path="experience"/>
+                  <PropertyValue Property="Label" String="Experience in months"/>
+                </Record>
+              </Collection>
+            </PropertyValue>
+            <PropertyValue Property="Label" String="Skills"/>
+          </Record>
+        </Annotation>
+        <Annotation Term="UI.HeaderInfo">
+          <Record Type="UI.HeaderInfoType">
+            <PropertyValue Property="ImageUrl" Path="imageUrl"/>
+            <PropertyValue Property="Title">
+              <Record Type="UI.DataField">
+                <PropertyValue Property="Value" Path="skill"/>
+              </Record>
+            </PropertyValue>
+            <PropertyValue Property="TypeName" String="Skill"/>
+            <PropertyValue Property="TypeNamePlural" String="Skills"/>
+          </Record>
+        </Annotation>
+        <Annotation Term="UI.LineItem">
+          <Collection>
+            <Record Type="UI.DataField">
+              <PropertyValue Property="Value" Path="skill"/>
+              <PropertyValue Property="Label" String="Skill"/>
+            </Record>
+            <Record Type="UI.DataField">
+              <PropertyValue Property="Value" Path="experience"/>
+              <PropertyValue Property="Label" String="Experience in months"/>
+            </Record>
+          </Collection>
+        </Annotation>
+      </Annotations>
+      <Annotations Target="CatalogService.Skill_details/createdAt" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+        <Annotation Term="Common.Label" String="Gecreëerd op"/>
+        <Annotation Term="Core.Computed" Bool="true"/>
+        <Annotation Term="Core.Immutable" Bool="true"/>
+        <Annotation Term="UI.HiddenFilter" Bool="true"/>
+      </Annotations>
+      <Annotations Target="CatalogService.Skill_details/createdBy" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+        <Annotation Term="Common.Label" String="Gecreëerd door"/>
+        <Annotation Term="Core.Computed" Bool="true"/>
+        <Annotation Term="Core.Description" String="Unieke ID van gebruiker"/>
+        <Annotation Term="Core.Immutable" Bool="true"/>
+        <Annotation Term="UI.HiddenFilter" Bool="true"/>
+      </Annotations>
+      <Annotations Target="CatalogService.Skill_details/modifiedAt" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+        <Annotation Term="Common.Label" String="Gewijzigd op"/>
+        <Annotation Term="Core.Computed" Bool="true"/>
+        <Annotation Term="UI.HiddenFilter" Bool="true"/>
+      </Annotations>
+      <Annotations Target="CatalogService.Skill_details/modifiedBy" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+        <Annotation Term="Common.Label" String="Gewijzigd door"/>
+        <Annotation Term="Core.Computed" Bool="true"/>
+        <Annotation Term="Core.Description" String="Unieke ID van gebruiker"/>
+        <Annotation Term="UI.HiddenFilter" Bool="true"/>
+      </Annotations>
+      <Annotations Target="CatalogService.Skill_details/skill" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+        <Annotation Term="Common.ValueList">
+          <Record Type="Common.ValueListType">
+            <PropertyValue Property="CollectionPath" String="Skill_types"/>
+            <PropertyValue Property="Parameters">
+              <Collection>
+                <Record Type="Common.ValueListParameterInOut">
+                  <PropertyValue Property="LocalDataProperty" PropertyPath="skill"/>
+                  <PropertyValue Property="ValueListProperty" String="skill"/>
+                </Record>
+              </Collection>
+            </PropertyValue>
+            <PropertyValue Property="SearchSupported" Bool="true"/>
+          </Record>
+        </Annotation>
+      </Annotations>
+      <Annotations Target="CatalogService.EntityContainer/Skill_types" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+        <Annotation Term="Capabilities.DeleteRestrictions">
+          <Record Type="Capabilities.DeleteRestrictionsType">
+            <PropertyValue Property="Deletable" Bool="false"/>
+          </Record>
+        </Annotation>
+        <Annotation Term="Capabilities.InsertRestrictions">
+          <Record Type="Capabilities.InsertRestrictionsType">
+            <PropertyValue Property="Insertable" Bool="false"/>
+          </Record>
+        </Annotation>
+        <Annotation Term="Capabilities.UpdateRestrictions">
+          <Record Type="Capabilities.UpdateRestrictionsType">
+            <PropertyValue Property="Updatable" Bool="false"/>
+          </Record>
+        </Annotation>
+      </Annotations>
+      <Annotations Target="CatalogService.EntityContainer/Status" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+        <Annotation Term="Capabilities.DeleteRestrictions">
+          <Record Type="Capabilities.DeleteRestrictionsType">
+            <PropertyValue Property="Deletable" Bool="false"/>
+          </Record>
+        </Annotation>
+        <Annotation Term="Capabilities.InsertRestrictions">
+          <Record Type="Capabilities.InsertRestrictionsType">
+            <PropertyValue Property="Insertable" Bool="false"/>
+          </Record>
+        </Annotation>
+        <Annotation Term="Capabilities.UpdateRestrictions">
+          <Record Type="Capabilities.UpdateRestrictionsType">
+            <PropertyValue Property="Updatable" Bool="false"/>
+          </Record>
+        </Annotation>
+      </Annotations>
+      <Annotations Target="CatalogService.Workers" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+        <Annotation Term="UI.Facets">
+          <Collection>
+            <Record Type="UI.ReferenceFacet">
+              <PropertyValue Property="Label" String="General Information"/>
+              <PropertyValue Property="Target" AnnotationPath="@UI.FieldGroup#GeneralInformation"/>
+            </Record>
+            <Record Type="UI.ReferenceFacet">
+              <PropertyValue Property="Label" String="Address"/>
+              <PropertyValue Property="Target" AnnotationPath="@UI.FieldGroup#Address"/>
+            </Record>
+            <Record Type="UI.ReferenceFacet">
+              <PropertyValue Property="Label" String="Contact Information"/>
+              <PropertyValue Property="Target" AnnotationPath="@UI.FieldGroup#Contact"/>
+            </Record>
+            <Record Type="UI.ReferenceFacet">
+              <PropertyValue Property="Label" String="Map"/>
+              <PropertyValue Property="Target" AnnotationPath="@UI.GeoLocation"/>
+            </Record>
+            <Record Type="UI.ReferenceFacet">
+              <PropertyValue Property="Label" String="Work Experience"/>
+              <PropertyValue Property="Target" AnnotationPath="Skill_details/@UI.LineItem"/>
+            </Record>
+          </Collection>
+        </Annotation>
+        <Annotation Term="UI.FieldGroup" Qualifier="Address">
+          <Record Type="UI.FieldGroupType">
+            <PropertyValue Property="Data">
+              <Collection>
+                <Record Type="UI.DataField">
+                  <PropertyValue Property="Value" Path="locality"/>
+                </Record>
+                <Record Type="UI.DataField">
+                  <PropertyValue Property="Value" Path="city"/>
+                </Record>
+                <Record Type="UI.DataField">
+                  <PropertyValue Property="Value" Path="state"/>
+                </Record>
+                <Record Type="UI.DataField">
+                  <PropertyValue Property="Value" Path="pin_code"/>
+                </Record>
+              </Collection>
+            </PropertyValue>
+          </Record>
+        </Annotation>
+        <Annotation Term="UI.FieldGroup" Qualifier="Contact">
+          <Record Type="UI.FieldGroupType">
+            <PropertyValue Property="Data">
+              <Collection>
+                <Record Type="UI.DataField">
+                  <PropertyValue Property="Value" Path="phone"/>
+                </Record>
+              </Collection>
+            </PropertyValue>
+          </Record>
+        </Annotation>
+        <Annotation Term="UI.FieldGroup" Qualifier="GeneralInformation">
+          <Record Type="UI.FieldGroupType">
+            <PropertyValue Property="Data">
+              <Collection>
+                <Record Type="UI.DataField">
+                  <PropertyValue Property="Value" Path="name"/>
+                </Record>
+                <Record Type="UI.DataField">
+                  <PropertyValue Property="Value" Path="gender"/>
+                </Record>
+                <Record Type="UI.DataField">
+                  <PropertyValue Property="Value" Path="aadhar"/>
+                </Record>
+                <Record Type="UI.DataField">
+                  <PropertyValue Property="Value" Path="birth_date"/>
+                </Record>
+                <Record Type="UI.DataField">
+                  <PropertyValue Property="Value" Path="status"/>
+                </Record>
+                <Record Type="UI.DataField">
+                  <PropertyValue Property="Value" Path="skill"/>
+                </Record>
+              </Collection>
+            </PropertyValue>
+          </Record>
+        </Annotation>
+        <Annotation Term="UI.HeaderInfo">
+          <Record Type="UI.HeaderInfoType">
+            <PropertyValue Property="ImageUrl" Path="imageUrl"/>
+            <PropertyValue Property="Title">
+              <Record Type="UI.DataField">
+                <PropertyValue Property="Value" Path="name"/>
+              </Record>
+            </PropertyValue>
+            <PropertyValue Property="TypeName" String="Worker"/>
+            <PropertyValue Property="TypeNamePlural" String="Workers"/>
+          </Record>
+        </Annotation>
+        <Annotation Term="UI.LineItem">
+          <Collection>
+            <Record Type="UI.DataField">
+              <PropertyValue Property="Value" Path="name"/>
+              <PropertyValue Property="Label" String="Name"/>
+            </Record>
+            <Record Type="UI.DataField">
+              <PropertyValue Property="Value" Path="gender"/>
+              <PropertyValue Property="Label" String="Gender"/>
+            </Record>
+            <Record Type="UI.DataField">
+              <PropertyValue Property="Value" Path="locality"/>
+              <PropertyValue Property="Label" String="Locality"/>
+            </Record>
+            <Record Type="UI.DataField">
+              <PropertyValue Property="Value" Path="city"/>
+              <PropertyValue Property="Label" String="City"/>
+            </Record>
+            <Record Type="UI.DataField">
+              <PropertyValue Property="Value" Path="skill"/>
+              <PropertyValue Property="Label" String="Skill"/>
+            </Record>
+          </Collection>
+        </Annotation>
+        <Annotation Term="UI.SelectionFields">
+          <Collection>
+            <PropertyPath>name</PropertyPath>
+            <PropertyPath>gender</PropertyPath>
+            <PropertyPath>locality</PropertyPath>
+            <PropertyPath>city</PropertyPath>
+            <PropertyPath>skill</PropertyPath>
+            <PropertyPath>radius</PropertyPath>
+          </Collection>
+        </Annotation>
+      </Annotations>
+      <Annotations Target="CatalogService.Workers/createdAt" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+        <Annotation Term="Common.Label" String="Gecreëerd op"/>
+        <Annotation Term="Core.Computed" Bool="true"/>
+        <Annotation Term="Core.Immutable" Bool="true"/>
+        <Annotation Term="UI.HiddenFilter" Bool="true"/>
+      </Annotations>
+      <Annotations Target="CatalogService.Workers/createdBy" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+        <Annotation Term="Common.Label" String="Gecreëerd door"/>
+        <Annotation Term="Core.Computed" Bool="true"/>
+        <Annotation Term="Core.Description" String="Unieke ID van gebruiker"/>
+        <Annotation Term="Core.Immutable" Bool="true"/>
+        <Annotation Term="UI.HiddenFilter" Bool="true"/>
+      </Annotations>
+      <Annotations Target="CatalogService.Workers/modifiedAt" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+        <Annotation Term="Common.Label" String="Gewijzigd op"/>
+        <Annotation Term="Core.Computed" Bool="true"/>
+        <Annotation Term="UI.HiddenFilter" Bool="true"/>
+      </Annotations>
+      <Annotations Target="CatalogService.Workers/modifiedBy" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+        <Annotation Term="Common.Label" String="Gewijzigd door"/>
+        <Annotation Term="Core.Computed" Bool="true"/>
+        <Annotation Term="Core.Description" String="Unieke ID van gebruiker"/>
+        <Annotation Term="UI.HiddenFilter" Bool="true"/>
+      </Annotations>
+      <Annotations Target="CatalogService.Workers/ID" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+        <Annotation Term="Common.Label" String="Worker ID"/>
+      </Annotations>
+      <Annotations Target="CatalogService.Workers/name" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+        <Annotation Term="Common.Label" String="Name"/>
+      </Annotations>
+      <Annotations Target="CatalogService.Workers/phone" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+        <Annotation Term="Common.Label" String="Phone"/>
+      </Annotations>
+      <Annotations Target="CatalogService.Workers/gender" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+        <Annotation Term="Common.Label" String="Gender"/>
+        <Annotation Term="Common.ValueList">
+          <Record Type="Common.ValueListType">
+            <PropertyValue Property="CollectionPath" String="Genders"/>
+            <PropertyValue Property="Parameters">
+              <Collection>
+                <Record Type="Common.ValueListParameterInOut">
+                  <PropertyValue Property="LocalDataProperty" PropertyPath="gender"/>
+                  <PropertyValue Property="ValueListProperty" String="gender"/>
+                </Record>
+              </Collection>
+            </PropertyValue>
+            <PropertyValue Property="SearchSupported" Bool="true"/>
+          </Record>
+        </Annotation>
+      </Annotations>
+      <Annotations Target="CatalogService.Workers/locality" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+        <Annotation Term="Common.Label" String="Locality"/>
+      </Annotations>
+      <Annotations Target="CatalogService.Workers/city" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+        <Annotation Term="Common.Label" String="City"/>
+      </Annotations>
+      <Annotations Target="CatalogService.Workers/state" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+        <Annotation Term="Common.Label" String="State"/>
+      </Annotations>
+      <Annotations Target="CatalogService.Workers/country" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+        <Annotation Term="Common.Label" String="Country"/>
+        <Annotation Term="Core.Description" String="Landcode zoals gespecificeerd door ISO 3166-1"/>
+      </Annotations>
+      <Annotations Target="CatalogService.Workers/lat" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+        <Annotation Term="Common.Label" String="Latitude"/>
+      </Annotations>
+      <Annotations Target="CatalogService.Workers/long" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+        <Annotation Term="Common.Label" String="Longitude"/>
+      </Annotations>
+      <Annotations Target="CatalogService.Workers/radius" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+        <Annotation Term="Common.Label" String="Radius"/>
+        <Annotation Term="Common.ValueList">
+          <Record Type="Common.ValueListType">
+            <PropertyValue Property="CollectionPath" String="Radius"/>
+            <PropertyValue Property="Parameters">
+              <Collection>
+                <Record Type="Common.ValueListParameterInOut">
+                  <PropertyValue Property="LocalDataProperty" PropertyPath="radius"/>
+                  <PropertyValue Property="ValueListProperty" String="radius"/>
+                </Record>
+              </Collection>
+            </PropertyValue>
+            <PropertyValue Property="SearchSupported" Bool="true"/>
+          </Record>
+        </Annotation>
+      </Annotations>
+      <Annotations Target="CatalogService.Workers/pin_code" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+        <Annotation Term="Common.Label" String="Pin Code"/>
+      </Annotations>
+      <Annotations Target="CatalogService.Workers/aadhar" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+        <Annotation Term="Common.Label" String="Aadhar"/>
+      </Annotations>
+      <Annotations Target="CatalogService.Workers/birth_date" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+        <Annotation Term="Common.Label" String="Date of Birth"/>
+      </Annotations>
+      <Annotations Target="CatalogService.Workers/status" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+        <Annotation Term="Common.Label" String="Status"/>
+        <Annotation Term="Common.ValueList">
+          <Record Type="Common.ValueListType">
+            <PropertyValue Property="CollectionPath" String="Status"/>
+            <PropertyValue Property="Parameters">
+              <Collection>
+                <Record Type="Common.ValueListParameterInOut">
+                  <PropertyValue Property="LocalDataProperty" PropertyPath="status"/>
+                  <PropertyValue Property="ValueListProperty" String="status"/>
+                </Record>
+              </Collection>
+            </PropertyValue>
+            <PropertyValue Property="SearchSupported" Bool="true"/>
+          </Record>
+        </Annotation>
+      </Annotations>
+      <Annotations Target="CatalogService.Workers/skill" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+        <Annotation Term="Common.Label" String="Skill"/>
+        <Annotation Term="Common.ValueList">
+          <Record Type="Common.ValueListType">
+            <PropertyValue Property="CollectionPath" String="Skill_types"/>
+            <PropertyValue Property="Parameters">
+              <Collection>
+                <Record Type="Common.ValueListParameterInOut">
+                  <PropertyValue Property="LocalDataProperty" PropertyPath="skill"/>
+                  <PropertyValue Property="ValueListProperty" String="skill"/>
+                </Record>
+              </Collection>
+            </PropertyValue>
+            <PropertyValue Property="SearchSupported" Bool="true"/>
+          </Record>
+        </Annotation>
+      </Annotations>
+      <Annotations Target="CatalogService.Workers/imageType" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+        <Annotation Term="Core.IsMediaType" Bool="true"/>
+      </Annotations>
+      <Annotations Target="CatalogService.Workers/country_code" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+        <Annotation Term="Common.Label" String="Country"/>
+        <Annotation Term="Common.ValueList">
+          <Record Type="Common.ValueListType">
+            <PropertyValue Property="Label" String="Country"/>
+            <PropertyValue Property="CollectionPath" String="Countries"/>
+            <PropertyValue Property="Parameters">
+              <Collection>
+                <Record Type="Common.ValueListParameterInOut">
+                  <PropertyValue Property="LocalDataProperty" PropertyPath="country_code"/>
+                  <PropertyValue Property="ValueListProperty" String="code"/>
+                </Record>
+                <Record Type="Common.ValueListParameterDisplayOnly">
+                  <PropertyValue Property="ValueListProperty" String="name"/>
+                </Record>
+              </Collection>
+            </PropertyValue>
+          </Record>
+        </Annotation>
+        <Annotation Term="Core.Description" String="Landcode zoals gespecificeerd door ISO 3166-1"/>
+      </Annotations>
+      <Annotations Target="CatalogService.WorkersALP" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+        <Annotation Term="Aggregation.ApplySupported">
+          <Record Type="Aggregation.ApplySupportedType">
+            <PropertyValue Property="PropertyRestrictions" Bool="true"/>
+          </Record>
+        </Annotation>
+        <Annotation Term="UI.Chart">
+          <Record Type="UI.ChartDefinitionType">
+            <PropertyValue Property="ChartType" EnumMember="UI.ChartType/ColumnDual"/>
+            <PropertyValue Property="DimensionAttributes">
+              <Collection>
+                <Record Type="UI.ChartDimensionAttributeType">
+                  <PropertyValue Property="Dimension" PropertyPath="skill"/>
+                  <PropertyValue Property="Role" EnumMember="UI.ChartDimensionRoleType/Category"/>
+                </Record>
+                <Record Type="UI.ChartDimensionAttributeType">
+                  <PropertyValue Property="Dimension" PropertyPath="locality"/>
+                  <PropertyValue Property="Role" EnumMember="UI.ChartDimensionRoleType/Category2"/>
+                </Record>
+              </Collection>
+            </PropertyValue>
+            <PropertyValue Property="Dimensions">
+              <Collection>
+                <PropertyPath>skill</PropertyPath>
+                <PropertyPath>locality</PropertyPath>
+              </Collection>
+            </PropertyValue>
+            <PropertyValue Property="MeasureAttributes">
+              <Collection>
+                <Record Type="UI.ChartMeasureAttributeType">
+                  <PropertyValue Property="Role" EnumMember="UI.ChartMeasureRoleType/valueAxis"/>
+                  <PropertyValue Property="Measure" PropertyPath="count"/>
+                </Record>
+              </Collection>
+            </PropertyValue>
+            <PropertyValue Property="Measures">
+              <Collection>
+                <PropertyPath>count</PropertyPath>
+              </Collection>
+            </PropertyValue>
+          </Record>
+        </Annotation>
+        <Annotation Term="UI.LineItem">
+          <Collection>
+            <Record Type="UI.DataField">
+              <PropertyValue Property="Value" Path="locality"/>
+              <PropertyValue Property="Label" String="Locality"/>
+            </Record>
+            <Record Type="UI.DataField">
+              <PropertyValue Property="Value" Path="city"/>
+              <PropertyValue Property="Label" String="City"/>
+            </Record>
+            <Record Type="UI.DataField">
+              <PropertyValue Property="Value" Path="skill"/>
+              <PropertyValue Property="Label" String="Skill"/>
+            </Record>
+          </Collection>
+        </Annotation>
+      </Annotations>
+      <Annotations Target="CatalogService.WorkersALP/ID__" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+        <Annotation Term="UI.Hidden" Bool="true"/>
+      </Annotations>
+      <Annotations Target="CatalogService.WorkersALP/ID" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+        <Annotation Term="Common.Label" String="Workers"/>
+      </Annotations>
+      <Annotations Target="CatalogService.WorkersALP/count" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+        <Annotation Term="Aggregation.default" EnumMember="Aggregation.defaultType/COUNT"/>
+        <Annotation Term="Analytics.Measure" Bool="true"/>
+        <Annotation Term="Common.Label" String="Workers"/>
+      </Annotations>
+      <Annotations Target="CatalogService.WorkersALP/locality" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+        <Annotation Term="Analytics.Dimension" Bool="true"/>
+        <Annotation Term="Common.Label" String="Locality"/>
+      </Annotations>
+      <Annotations Target="CatalogService.WorkersALP/city" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+        <Annotation Term="Analytics.Dimension" Bool="true"/>
+        <Annotation Term="Common.Label" String="City"/>
+      </Annotations>
+      <Annotations Target="CatalogService.WorkersALP/state" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+        <Annotation Term="Analytics.Dimension" Bool="true"/>
+        <Annotation Term="Common.Label" String="State"/>
+      </Annotations>
+      <Annotations Target="CatalogService.WorkersALP/skill" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+        <Annotation Term="Analytics.Dimension" Bool="true"/>
+        <Annotation Term="Common.Label" String="Skill"/>
+      </Annotations>
+    </Schema>
+  </edmx:DataServices>
+</edmx:Edmx>

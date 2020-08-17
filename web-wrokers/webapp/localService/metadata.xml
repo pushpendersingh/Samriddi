@@ -1,0 +1,552 @@
+<edmx:Edmx xmlns:edmx="http://schemas.microsoft.com/ado/2007/06/edmx" xmlns:sap="http://www.sap.com/Protocols/SAPData" xmlns:ux="http://www.sap.com/Protocols/OData4SAP/UX" xmlns:gp="http://www.sap.com/Protocols/SAPData/GenericPlayer" Version="1.0">
+<edmx:Reference xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx" Uri="https://oasis-tcs.github.io/odata-vocabularies/vocabularies/Org.OData.Capabilities.V1.xml">
+<edmx:Include Alias="Capabilities" Namespace="Org.OData.Capabilities.V1"/>
+</edmx:Reference>
+<edmx:Reference xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx" Uri="https://sap.github.io/odata-vocabularies/vocabularies/Common.xml">
+<edmx:Include Alias="Common" Namespace="com.sap.vocabularies.Common.v1"/>
+</edmx:Reference>
+<edmx:Reference xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx" Uri="https://oasis-tcs.github.io/odata-vocabularies/vocabularies/Org.OData.Core.V1.xml">
+<edmx:Include Alias="Core" Namespace="Org.OData.Core.V1"/>
+</edmx:Reference>
+<edmx:Reference xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx" Uri="https://sap.github.io/odata-vocabularies/vocabularies/UI.xml">
+<edmx:Include Alias="UI" Namespace="com.sap.vocabularies.UI.v1"/>
+</edmx:Reference>
+<edmx:DataServices xmlns:m="http://schemas.microsoft.com/ado/2007/08/dataservices/metadata" m:DataServiceVersion="2.0">
+<Schema xmlns="http://schemas.microsoft.com/ado/2008/09/edm" Namespace="CatalogService">
+<EntityType Name="Countries">
+<Key>
+<PropertyRef Name="code"/>
+</Key>
+<Property Name="name" Type="Edm.String" MaxLength="255"/>
+<Property Name="descr" Type="Edm.String" MaxLength="1000"/>
+<Property Name="code" Type="Edm.String" Nullable="false" MaxLength="3"/>
+<NavigationProperty Name="texts" Relationship="CatalogService.Countries_texts_1" FromRole="Countries" ToRole="Countries_texts"/>
+<NavigationProperty Name="localized" Relationship="CatalogService.Countries_localized" FromRole="Countries" ToRole="Countries_texts"/>
+</EntityType>
+<EntityType Name="Countries_texts">
+<Key>
+<PropertyRef Name="locale"/>
+<PropertyRef Name="code"/>
+</Key>
+<Property Name="locale" Type="Edm.String" Nullable="false" MaxLength="14"/>
+<Property Name="name" Type="Edm.String" MaxLength="255"/>
+<Property Name="descr" Type="Edm.String" MaxLength="1000"/>
+<Property Name="code" Type="Edm.String" Nullable="false" MaxLength="3"/>
+</EntityType>
+<EntityType Name="Genders">
+<Key>
+<PropertyRef Name="gender"/>
+</Key>
+<Property Name="gender" Type="Edm.String" Nullable="false"/>
+</EntityType>
+<EntityType Name="Skill_details">
+<Key>
+<PropertyRef Name="ID"/>
+</Key>
+<Property Name="createdAt" Type="Edm.DateTimeOffset" Precision="7"/>
+<Property Name="createdBy" Type="Edm.String" MaxLength="255"/>
+<Property Name="modifiedAt" Type="Edm.DateTimeOffset" Precision="7"/>
+<Property Name="modifiedBy" Type="Edm.String" MaxLength="255"/>
+<Property Name="ID" Type="Edm.Guid" Nullable="false"/>
+<Property Name="skill" Type="Edm.String"/>
+<Property Name="experience" Type="Edm.Int32"/>
+<Property Name="worker_ID" Type="Edm.Guid"/>
+<NavigationProperty Name="worker" Relationship="CatalogService.Skill_details_worker" FromRole="Skill_details" ToRole="Workers"/>
+</EntityType>
+<EntityType Name="Skill_types">
+<Key>
+<PropertyRef Name="skill"/>
+</Key>
+<Property Name="skill" Type="Edm.String" Nullable="false"/>
+</EntityType>
+<EntityType Name="Status">
+<Key>
+<PropertyRef Name="status"/>
+</Key>
+<Property Name="status" Type="Edm.String" Nullable="false"/>
+</EntityType>
+<EntityType Name="Workers">
+<Key>
+<PropertyRef Name="ID"/>
+</Key>
+<Property Name="createdAt" Type="Edm.DateTimeOffset" Precision="7"/>
+<Property Name="createdBy" Type="Edm.String" MaxLength="255"/>
+<Property Name="modifiedAt" Type="Edm.DateTimeOffset" Precision="7"/>
+<Property Name="modifiedBy" Type="Edm.String" MaxLength="255"/>
+<Property Name="ID" Type="Edm.Guid" Nullable="false"/>
+<Property Name="name" Type="Edm.String"/>
+<Property Name="phone" Type="Edm.String"/>
+<Property Name="gender" Type="Edm.String" MaxLength="50" sap:value-list="fixed-values"/>
+<Property Name="locality" Type="Edm.String"/>
+<Property Name="city" Type="Edm.String"/>
+<Property Name="state" Type="Edm.String"/>
+<Property Name="pin_code" Type="Edm.String"/>
+<Property Name="aadhar" Type="Edm.String"/>
+<Property Name="birth_date" Type="Edm.DateTime" sap:display-format="Date"/>
+<Property Name="status" Type="Edm.String" MaxLength="50" sap:value-list="fixed-values"/>
+<Property Name="skill" Type="Edm.String" MaxLength="200" sap:value-list="fixed-values"/>
+<Property Name="country_code" Type="Edm.String" MaxLength="3"/>
+<NavigationProperty Name="country" Relationship="CatalogService.Workers_country" FromRole="Workers" ToRole="Countries"/>
+<NavigationProperty Name="experiences" Relationship="CatalogService.Skill_details_worker" FromRole="Workers" ToRole="Skill_details"/>
+</EntityType>
+<Association Name="Countries_texts_1">
+<End Type="CatalogService.Countries" Multiplicity="*" Role="Countries"/>
+<End Type="CatalogService.Countries_texts" Multiplicity="*" Role="Countries_texts">
+<OnDelete Action="Cascade"/>
+</End>
+</Association>
+<Association Name="Countries_localized">
+<End Type="CatalogService.Countries" Multiplicity="*" Role="Countries"/>
+<End Type="CatalogService.Countries_texts" Multiplicity="0..1" Role="Countries_texts"/>
+<ReferentialConstraint>
+<Principal Role="Countries_texts">
+<PropertyRef Name="code"/>
+</Principal>
+<Dependent Role="Countries">
+<PropertyRef Name="code"/>
+</Dependent>
+</ReferentialConstraint>
+</Association>
+<Association Name="Skill_details_worker">
+<End Type="CatalogService.Skill_details" Multiplicity="*" Role="Skill_details"/>
+<End Type="CatalogService.Workers" Multiplicity="0..1" Role="Workers"/>
+<ReferentialConstraint>
+<Principal Role="Workers">
+<PropertyRef Name="ID"/>
+</Principal>
+<Dependent Role="Skill_details">
+<PropertyRef Name="worker_ID"/>
+</Dependent>
+</ReferentialConstraint>
+</Association>
+<Association Name="Workers_country">
+<End Type="CatalogService.Workers" Multiplicity="*" Role="Workers"/>
+<End Type="CatalogService.Countries" Multiplicity="0..1" Role="Countries"/>
+<ReferentialConstraint>
+<Principal Role="Countries">
+<PropertyRef Name="code"/>
+</Principal>
+<Dependent Role="Workers">
+<PropertyRef Name="country_code"/>
+</Dependent>
+</ReferentialConstraint>
+</Association>
+<EntityContainer Name="EntityContainer" m:IsDefaultEntityContainer="true">
+<EntitySet Name="Countries" EntityType="CatalogService.Countries"/>
+<EntitySet Name="Countries_texts" EntityType="CatalogService.Countries_texts"/>
+<EntitySet Name="Genders" EntityType="CatalogService.Genders"/>
+<EntitySet Name="Skill_details" EntityType="CatalogService.Skill_details"/>
+<EntitySet Name="Skill_types" EntityType="CatalogService.Skill_types"/>
+<EntitySet Name="Status" EntityType="CatalogService.Status"/>
+<EntitySet Name="Workers" EntityType="CatalogService.Workers"/>
+<AssociationSet Name="Countries_texts_1" Association="CatalogService.Countries_texts_1">
+<End EntitySet="Countries" Role="Countries"/>
+<End EntitySet="Countries_texts" Role="Countries_texts"/>
+</AssociationSet>
+<AssociationSet Name="Countries_localized" Association="CatalogService.Countries_localized">
+<End EntitySet="Countries" Role="Countries"/>
+<End EntitySet="Countries_texts" Role="Countries_texts"/>
+</AssociationSet>
+<AssociationSet Name="Skill_details_worker" Association="CatalogService.Skill_details_worker">
+<End EntitySet="Skill_details" Role="Skill_details"/>
+<End EntitySet="Workers" Role="Workers"/>
+</AssociationSet>
+<AssociationSet Name="Workers_country" Association="CatalogService.Workers_country">
+<End EntitySet="Workers" Role="Workers"/>
+<End EntitySet="Countries" Role="Countries"/>
+</AssociationSet>
+</EntityContainer>
+<Annotations xmlns="http://docs.oasis-open.org/odata/ns/edm" Target="CatalogService.Countries">
+<Annotation xmlns="http://docs.oasis-open.org/odata/ns/edm" Term="UI.Identification">
+<Collection xmlns="http://docs.oasis-open.org/odata/ns/edm">
+<Record xmlns="http://docs.oasis-open.org/odata/ns/edm" Type="UI.DataField">
+<PropertyValue xmlns="http://docs.oasis-open.org/odata/ns/edm" Property="Value" Path="name"/>
+</Record>
+</Collection>
+</Annotation>
+</Annotations>
+<Annotations xmlns="http://docs.oasis-open.org/odata/ns/edm" Target="CatalogService.Countries/name">
+<Annotation xmlns="http://docs.oasis-open.org/odata/ns/edm" Term="Common.Label" String="Name"/>
+</Annotations>
+<Annotations xmlns="http://docs.oasis-open.org/odata/ns/edm" Target="CatalogService.Countries/descr">
+<Annotation xmlns="http://docs.oasis-open.org/odata/ns/edm" Term="Common.Label" String="Description"/>
+</Annotations>
+<Annotations xmlns="http://docs.oasis-open.org/odata/ns/edm" Target="CatalogService.Countries/code">
+<Annotation xmlns="http://docs.oasis-open.org/odata/ns/edm" Term="Common.Label" String="Country Code"/>
+</Annotations>
+<Annotations xmlns="http://docs.oasis-open.org/odata/ns/edm" Target="CatalogService.Countries_texts/name">
+<Annotation xmlns="http://docs.oasis-open.org/odata/ns/edm" Term="Common.Label" String="Name"/>
+</Annotations>
+<Annotations xmlns="http://docs.oasis-open.org/odata/ns/edm" Target="CatalogService.Countries_texts/descr">
+<Annotation xmlns="http://docs.oasis-open.org/odata/ns/edm" Term="Common.Label" String="Description"/>
+</Annotations>
+<Annotations xmlns="http://docs.oasis-open.org/odata/ns/edm" Target="CatalogService.Countries_texts/code">
+<Annotation xmlns="http://docs.oasis-open.org/odata/ns/edm" Term="Common.Label" String="Country Code"/>
+</Annotations>
+<Annotations xmlns="http://docs.oasis-open.org/odata/ns/edm" Target="CatalogService.EntityContainer/Genders">
+<Annotation xmlns="http://docs.oasis-open.org/odata/ns/edm" Term="Capabilities.DeleteRestrictions">
+<Record xmlns="http://docs.oasis-open.org/odata/ns/edm" Type="Capabilities.DeleteRestrictionsType">
+<PropertyValue xmlns="http://docs.oasis-open.org/odata/ns/edm" Property="Deletable" Bool="false"/>
+</Record>
+</Annotation>
+<Annotation xmlns="http://docs.oasis-open.org/odata/ns/edm" Term="Capabilities.InsertRestrictions">
+<Record xmlns="http://docs.oasis-open.org/odata/ns/edm" Type="Capabilities.InsertRestrictionsType">
+<PropertyValue xmlns="http://docs.oasis-open.org/odata/ns/edm" Property="Insertable" Bool="false"/>
+</Record>
+</Annotation>
+<Annotation xmlns="http://docs.oasis-open.org/odata/ns/edm" Term="Capabilities.UpdateRestrictions">
+<Record xmlns="http://docs.oasis-open.org/odata/ns/edm" Type="Capabilities.UpdateRestrictionsType">
+<PropertyValue xmlns="http://docs.oasis-open.org/odata/ns/edm" Property="Updatable" Bool="false"/>
+</Record>
+</Annotation>
+</Annotations>
+<Annotations xmlns="http://docs.oasis-open.org/odata/ns/edm" Target="CatalogService.Skill_details">
+<Annotation xmlns="http://docs.oasis-open.org/odata/ns/edm" Term="UI.Facets">
+<Collection xmlns="http://docs.oasis-open.org/odata/ns/edm">
+<Record xmlns="http://docs.oasis-open.org/odata/ns/edm" Type="UI.ReferenceFacet">
+<PropertyValue xmlns="http://docs.oasis-open.org/odata/ns/edm" Property="Label" String="Experience"/>
+<PropertyValue xmlns="http://docs.oasis-open.org/odata/ns/edm" Property="Target" AnnotationPath="@UI.FieldGroup#Experience"/>
+</Record>
+</Collection>
+</Annotation>
+<Annotation xmlns="http://docs.oasis-open.org/odata/ns/edm" Term="UI.FieldGroup" Qualifier="Experience">
+<Record xmlns="http://docs.oasis-open.org/odata/ns/edm" Type="UI.FieldGroupType">
+<PropertyValue xmlns="http://docs.oasis-open.org/odata/ns/edm" Property="Data">
+<Collection xmlns="http://docs.oasis-open.org/odata/ns/edm">
+<Record xmlns="http://docs.oasis-open.org/odata/ns/edm" Type="UI.DataField">
+<PropertyValue xmlns="http://docs.oasis-open.org/odata/ns/edm" Property="Value" Path="skill"/>
+</Record>
+<Record xmlns="http://docs.oasis-open.org/odata/ns/edm" Type="UI.DataField">
+<PropertyValue xmlns="http://docs.oasis-open.org/odata/ns/edm" Property="Value" Path="experience"/>
+</Record>
+</Collection>
+</PropertyValue>
+</Record>
+</Annotation>
+<Annotation xmlns="http://docs.oasis-open.org/odata/ns/edm" Term="UI.HeaderInfo">
+<Record xmlns="http://docs.oasis-open.org/odata/ns/edm" Type="UI.HeaderInfoType">
+<PropertyValue xmlns="http://docs.oasis-open.org/odata/ns/edm" Property="TypeName" String="Skill"/>
+<PropertyValue xmlns="http://docs.oasis-open.org/odata/ns/edm" Property="TypeNamePlural" String="Skills"/>
+</Record>
+</Annotation>
+<Annotation xmlns="http://docs.oasis-open.org/odata/ns/edm" Term="UI.LineItem">
+<Collection xmlns="http://docs.oasis-open.org/odata/ns/edm">
+<Record xmlns="http://docs.oasis-open.org/odata/ns/edm" Type="UI.DataField">
+<PropertyValue xmlns="http://docs.oasis-open.org/odata/ns/edm" Property="Value" Path="skill"/>
+<PropertyValue xmlns="http://docs.oasis-open.org/odata/ns/edm" Property="Label" String="Skill"/>
+</Record>
+<Record xmlns="http://docs.oasis-open.org/odata/ns/edm" Type="UI.DataField">
+<PropertyValue xmlns="http://docs.oasis-open.org/odata/ns/edm" Property="Value" Path="experience"/>
+<PropertyValue xmlns="http://docs.oasis-open.org/odata/ns/edm" Property="Label" String="Experience"/>
+</Record>
+</Collection>
+</Annotation>
+</Annotations>
+<Annotations xmlns="http://docs.oasis-open.org/odata/ns/edm" Target="CatalogService.Skill_details/createdAt">
+<Annotation xmlns="http://docs.oasis-open.org/odata/ns/edm" Term="Common.Label" String="Created On"/>
+<Annotation xmlns="http://docs.oasis-open.org/odata/ns/edm" Term="Core.Computed" Bool="true"/>
+<Annotation xmlns="http://docs.oasis-open.org/odata/ns/edm" Term="Core.Immutable" Bool="true"/>
+<Annotation xmlns="http://docs.oasis-open.org/odata/ns/edm" Term="UI.HiddenFilter" Bool="true"/>
+</Annotations>
+<Annotations xmlns="http://docs.oasis-open.org/odata/ns/edm" Target="CatalogService.Skill_details/createdBy">
+<Annotation xmlns="http://docs.oasis-open.org/odata/ns/edm" Term="Common.Label" String="Created By"/>
+<Annotation xmlns="http://docs.oasis-open.org/odata/ns/edm" Term="Core.Computed" Bool="true"/>
+<Annotation xmlns="http://docs.oasis-open.org/odata/ns/edm" Term="Core.Description" String="A user's unique ID"/>
+<Annotation xmlns="http://docs.oasis-open.org/odata/ns/edm" Term="Core.Immutable" Bool="true"/>
+<Annotation xmlns="http://docs.oasis-open.org/odata/ns/edm" Term="UI.HiddenFilter" Bool="true"/>
+</Annotations>
+<Annotations xmlns="http://docs.oasis-open.org/odata/ns/edm" Target="CatalogService.Skill_details/modifiedAt">
+<Annotation xmlns="http://docs.oasis-open.org/odata/ns/edm" Term="Common.Label" String="Changed On"/>
+<Annotation xmlns="http://docs.oasis-open.org/odata/ns/edm" Term="Core.Computed" Bool="true"/>
+<Annotation xmlns="http://docs.oasis-open.org/odata/ns/edm" Term="UI.HiddenFilter" Bool="true"/>
+</Annotations>
+<Annotations xmlns="http://docs.oasis-open.org/odata/ns/edm" Target="CatalogService.Skill_details/modifiedBy">
+<Annotation xmlns="http://docs.oasis-open.org/odata/ns/edm" Term="Common.Label" String="Changed By"/>
+<Annotation xmlns="http://docs.oasis-open.org/odata/ns/edm" Term="Core.Computed" Bool="true"/>
+<Annotation xmlns="http://docs.oasis-open.org/odata/ns/edm" Term="Core.Description" String="A user's unique ID"/>
+<Annotation xmlns="http://docs.oasis-open.org/odata/ns/edm" Term="UI.HiddenFilter" Bool="true"/>
+</Annotations>
+<Annotations xmlns="http://docs.oasis-open.org/odata/ns/edm" Target="CatalogService.EntityContainer/Skill_types">
+<Annotation xmlns="http://docs.oasis-open.org/odata/ns/edm" Term="Capabilities.DeleteRestrictions">
+<Record xmlns="http://docs.oasis-open.org/odata/ns/edm" Type="Capabilities.DeleteRestrictionsType">
+<PropertyValue xmlns="http://docs.oasis-open.org/odata/ns/edm" Property="Deletable" Bool="false"/>
+</Record>
+</Annotation>
+<Annotation xmlns="http://docs.oasis-open.org/odata/ns/edm" Term="Capabilities.InsertRestrictions">
+<Record xmlns="http://docs.oasis-open.org/odata/ns/edm" Type="Capabilities.InsertRestrictionsType">
+<PropertyValue xmlns="http://docs.oasis-open.org/odata/ns/edm" Property="Insertable" Bool="false"/>
+</Record>
+</Annotation>
+<Annotation xmlns="http://docs.oasis-open.org/odata/ns/edm" Term="Capabilities.UpdateRestrictions">
+<Record xmlns="http://docs.oasis-open.org/odata/ns/edm" Type="Capabilities.UpdateRestrictionsType">
+<PropertyValue xmlns="http://docs.oasis-open.org/odata/ns/edm" Property="Updatable" Bool="false"/>
+</Record>
+</Annotation>
+</Annotations>
+<Annotations xmlns="http://docs.oasis-open.org/odata/ns/edm" Target="CatalogService.EntityContainer/Status">
+<Annotation xmlns="http://docs.oasis-open.org/odata/ns/edm" Term="Capabilities.DeleteRestrictions">
+<Record xmlns="http://docs.oasis-open.org/odata/ns/edm" Type="Capabilities.DeleteRestrictionsType">
+<PropertyValue xmlns="http://docs.oasis-open.org/odata/ns/edm" Property="Deletable" Bool="false"/>
+</Record>
+</Annotation>
+<Annotation xmlns="http://docs.oasis-open.org/odata/ns/edm" Term="Capabilities.InsertRestrictions">
+<Record xmlns="http://docs.oasis-open.org/odata/ns/edm" Type="Capabilities.InsertRestrictionsType">
+<PropertyValue xmlns="http://docs.oasis-open.org/odata/ns/edm" Property="Insertable" Bool="false"/>
+</Record>
+</Annotation>
+<Annotation xmlns="http://docs.oasis-open.org/odata/ns/edm" Term="Capabilities.UpdateRestrictions">
+<Record xmlns="http://docs.oasis-open.org/odata/ns/edm" Type="Capabilities.UpdateRestrictionsType">
+<PropertyValue xmlns="http://docs.oasis-open.org/odata/ns/edm" Property="Updatable" Bool="false"/>
+</Record>
+</Annotation>
+</Annotations>
+<Annotations xmlns="http://docs.oasis-open.org/odata/ns/edm" Target="CatalogService.Workers">
+<Annotation xmlns="http://docs.oasis-open.org/odata/ns/edm" Term="UI.Facets">
+<Collection xmlns="http://docs.oasis-open.org/odata/ns/edm">
+<Record xmlns="http://docs.oasis-open.org/odata/ns/edm" Type="UI.ReferenceFacet">
+<PropertyValue xmlns="http://docs.oasis-open.org/odata/ns/edm" Property="Label" String="General Information"/>
+<PropertyValue xmlns="http://docs.oasis-open.org/odata/ns/edm" Property="Target" AnnotationPath="@UI.FieldGroup#GeneralInformation"/>
+</Record>
+<Record xmlns="http://docs.oasis-open.org/odata/ns/edm" Type="UI.ReferenceFacet">
+<PropertyValue xmlns="http://docs.oasis-open.org/odata/ns/edm" Property="Label" String="Address"/>
+<PropertyValue xmlns="http://docs.oasis-open.org/odata/ns/edm" Property="Target" AnnotationPath="@UI.FieldGroup#Address"/>
+</Record>
+<Record xmlns="http://docs.oasis-open.org/odata/ns/edm" Type="UI.ReferenceFacet">
+<PropertyValue xmlns="http://docs.oasis-open.org/odata/ns/edm" Property="Label" String="Contact Information"/>
+<PropertyValue xmlns="http://docs.oasis-open.org/odata/ns/edm" Property="Target" AnnotationPath="@UI.FieldGroup#Contact"/>
+</Record>
+<Record xmlns="http://docs.oasis-open.org/odata/ns/edm" Type="UI.ReferenceFacet">
+<PropertyValue xmlns="http://docs.oasis-open.org/odata/ns/edm" Property="Label" String="Work Experience"/>
+<PropertyValue xmlns="http://docs.oasis-open.org/odata/ns/edm" Property="Target" AnnotationPath="experiences/@UI.LineItem"/>
+</Record>
+</Collection>
+</Annotation>
+<Annotation xmlns="http://docs.oasis-open.org/odata/ns/edm" Term="UI.FieldGroup" Qualifier="Address">
+<Record xmlns="http://docs.oasis-open.org/odata/ns/edm" Type="UI.FieldGroupType">
+<PropertyValue xmlns="http://docs.oasis-open.org/odata/ns/edm" Property="Data">
+<Collection xmlns="http://docs.oasis-open.org/odata/ns/edm">
+<Record xmlns="http://docs.oasis-open.org/odata/ns/edm" Type="UI.DataField">
+<PropertyValue xmlns="http://docs.oasis-open.org/odata/ns/edm" Property="Value" Path="locality"/>
+</Record>
+<Record xmlns="http://docs.oasis-open.org/odata/ns/edm" Type="UI.DataField">
+<PropertyValue xmlns="http://docs.oasis-open.org/odata/ns/edm" Property="Value" Path="city"/>
+</Record>
+<Record xmlns="http://docs.oasis-open.org/odata/ns/edm" Type="UI.DataField">
+<PropertyValue xmlns="http://docs.oasis-open.org/odata/ns/edm" Property="Value" Path="state"/>
+</Record>
+<Record xmlns="http://docs.oasis-open.org/odata/ns/edm" Type="UI.DataField">
+<PropertyValue xmlns="http://docs.oasis-open.org/odata/ns/edm" Property="Value" Path="pin_code"/>
+</Record>
+</Collection>
+</PropertyValue>
+</Record>
+</Annotation>
+<Annotation xmlns="http://docs.oasis-open.org/odata/ns/edm" Term="UI.FieldGroup" Qualifier="Contact">
+<Record xmlns="http://docs.oasis-open.org/odata/ns/edm" Type="UI.FieldGroupType">
+<PropertyValue xmlns="http://docs.oasis-open.org/odata/ns/edm" Property="Data">
+<Collection xmlns="http://docs.oasis-open.org/odata/ns/edm">
+<Record xmlns="http://docs.oasis-open.org/odata/ns/edm" Type="UI.DataField">
+<PropertyValue xmlns="http://docs.oasis-open.org/odata/ns/edm" Property="Value" Path="phone"/>
+</Record>
+</Collection>
+</PropertyValue>
+</Record>
+</Annotation>
+<Annotation xmlns="http://docs.oasis-open.org/odata/ns/edm" Term="UI.FieldGroup" Qualifier="GeneralInformation">
+<Record xmlns="http://docs.oasis-open.org/odata/ns/edm" Type="UI.FieldGroupType">
+<PropertyValue xmlns="http://docs.oasis-open.org/odata/ns/edm" Property="Data">
+<Collection xmlns="http://docs.oasis-open.org/odata/ns/edm">
+<Record xmlns="http://docs.oasis-open.org/odata/ns/edm" Type="UI.DataField">
+<PropertyValue xmlns="http://docs.oasis-open.org/odata/ns/edm" Property="Value" Path="name"/>
+</Record>
+<Record xmlns="http://docs.oasis-open.org/odata/ns/edm" Type="UI.DataField">
+<PropertyValue xmlns="http://docs.oasis-open.org/odata/ns/edm" Property="Value" Path="gender"/>
+</Record>
+<Record xmlns="http://docs.oasis-open.org/odata/ns/edm" Type="UI.DataField">
+<PropertyValue xmlns="http://docs.oasis-open.org/odata/ns/edm" Property="Value" Path="aadhar"/>
+</Record>
+<Record xmlns="http://docs.oasis-open.org/odata/ns/edm" Type="UI.DataField">
+<PropertyValue xmlns="http://docs.oasis-open.org/odata/ns/edm" Property="Value" Path="birth_date"/>
+</Record>
+<Record xmlns="http://docs.oasis-open.org/odata/ns/edm" Type="UI.DataField">
+<PropertyValue xmlns="http://docs.oasis-open.org/odata/ns/edm" Property="Value" Path="status"/>
+</Record>
+<Record xmlns="http://docs.oasis-open.org/odata/ns/edm" Type="UI.DataField">
+<PropertyValue xmlns="http://docs.oasis-open.org/odata/ns/edm" Property="Value" Path="skill"/>
+</Record>
+</Collection>
+</PropertyValue>
+</Record>
+</Annotation>
+<Annotation xmlns="http://docs.oasis-open.org/odata/ns/edm" Term="UI.HeaderInfo">
+<Record xmlns="http://docs.oasis-open.org/odata/ns/edm" Type="UI.HeaderInfoType">
+<PropertyValue xmlns="http://docs.oasis-open.org/odata/ns/edm" Property="Title">
+<Record xmlns="http://docs.oasis-open.org/odata/ns/edm" Type="UI.DataField">
+<PropertyValue xmlns="http://docs.oasis-open.org/odata/ns/edm" Property="Value" Path="name"/>
+</Record>
+</PropertyValue>
+<PropertyValue xmlns="http://docs.oasis-open.org/odata/ns/edm" Property="TypeName" String="Worker"/>
+<PropertyValue xmlns="http://docs.oasis-open.org/odata/ns/edm" Property="TypeNamePlural" String="Workers"/>
+</Record>
+</Annotation>
+<Annotation xmlns="http://docs.oasis-open.org/odata/ns/edm" Term="UI.LineItem">
+<Collection xmlns="http://docs.oasis-open.org/odata/ns/edm">
+<Record xmlns="http://docs.oasis-open.org/odata/ns/edm" Type="UI.DataField">
+<PropertyValue xmlns="http://docs.oasis-open.org/odata/ns/edm" Property="Value" Path="name"/>
+<PropertyValue xmlns="http://docs.oasis-open.org/odata/ns/edm" Property="Label" String="Name"/>
+</Record>
+<Record xmlns="http://docs.oasis-open.org/odata/ns/edm" Type="UI.DataField">
+<PropertyValue xmlns="http://docs.oasis-open.org/odata/ns/edm" Property="Value" Path="gender"/>
+<PropertyValue xmlns="http://docs.oasis-open.org/odata/ns/edm" Property="Label" String="Gender"/>
+</Record>
+<Record xmlns="http://docs.oasis-open.org/odata/ns/edm" Type="UI.DataField">
+<PropertyValue xmlns="http://docs.oasis-open.org/odata/ns/edm" Property="Value" Path="locality"/>
+<PropertyValue xmlns="http://docs.oasis-open.org/odata/ns/edm" Property="Label" String="Locality"/>
+</Record>
+<Record xmlns="http://docs.oasis-open.org/odata/ns/edm" Type="UI.DataField">
+<PropertyValue xmlns="http://docs.oasis-open.org/odata/ns/edm" Property="Value" Path="city"/>
+<PropertyValue xmlns="http://docs.oasis-open.org/odata/ns/edm" Property="Label" String="City"/>
+</Record>
+<Record xmlns="http://docs.oasis-open.org/odata/ns/edm" Type="UI.DataField">
+<PropertyValue xmlns="http://docs.oasis-open.org/odata/ns/edm" Property="Value" Path="skill"/>
+<PropertyValue xmlns="http://docs.oasis-open.org/odata/ns/edm" Property="Label" String="Main Skill"/>
+</Record>
+</Collection>
+</Annotation>
+<Annotation xmlns="http://docs.oasis-open.org/odata/ns/edm" Term="UI.SelectionFields">
+<Collection xmlns="http://docs.oasis-open.org/odata/ns/edm">
+<PropertyPath xmlns="http://docs.oasis-open.org/odata/ns/edm">name</PropertyPath>
+<PropertyPath xmlns="http://docs.oasis-open.org/odata/ns/edm">gender</PropertyPath>
+<PropertyPath xmlns="http://docs.oasis-open.org/odata/ns/edm">locality</PropertyPath>
+<PropertyPath xmlns="http://docs.oasis-open.org/odata/ns/edm">city</PropertyPath>
+<PropertyPath xmlns="http://docs.oasis-open.org/odata/ns/edm">skill</PropertyPath>
+</Collection>
+</Annotation>
+</Annotations>
+<Annotations xmlns="http://docs.oasis-open.org/odata/ns/edm" Target="CatalogService.Workers/createdAt">
+<Annotation xmlns="http://docs.oasis-open.org/odata/ns/edm" Term="Common.Label" String="Created On"/>
+<Annotation xmlns="http://docs.oasis-open.org/odata/ns/edm" Term="Core.Computed" Bool="true"/>
+<Annotation xmlns="http://docs.oasis-open.org/odata/ns/edm" Term="Core.Immutable" Bool="true"/>
+<Annotation xmlns="http://docs.oasis-open.org/odata/ns/edm" Term="UI.HiddenFilter" Bool="true"/>
+</Annotations>
+<Annotations xmlns="http://docs.oasis-open.org/odata/ns/edm" Target="CatalogService.Workers/createdBy">
+<Annotation xmlns="http://docs.oasis-open.org/odata/ns/edm" Term="Common.Label" String="Created By"/>
+<Annotation xmlns="http://docs.oasis-open.org/odata/ns/edm" Term="Core.Computed" Bool="true"/>
+<Annotation xmlns="http://docs.oasis-open.org/odata/ns/edm" Term="Core.Description" String="A user's unique ID"/>
+<Annotation xmlns="http://docs.oasis-open.org/odata/ns/edm" Term="Core.Immutable" Bool="true"/>
+<Annotation xmlns="http://docs.oasis-open.org/odata/ns/edm" Term="UI.HiddenFilter" Bool="true"/>
+</Annotations>
+<Annotations xmlns="http://docs.oasis-open.org/odata/ns/edm" Target="CatalogService.Workers/modifiedAt">
+<Annotation xmlns="http://docs.oasis-open.org/odata/ns/edm" Term="Common.Label" String="Changed On"/>
+<Annotation xmlns="http://docs.oasis-open.org/odata/ns/edm" Term="Core.Computed" Bool="true"/>
+<Annotation xmlns="http://docs.oasis-open.org/odata/ns/edm" Term="UI.HiddenFilter" Bool="true"/>
+</Annotations>
+<Annotations xmlns="http://docs.oasis-open.org/odata/ns/edm" Target="CatalogService.Workers/modifiedBy">
+<Annotation xmlns="http://docs.oasis-open.org/odata/ns/edm" Term="Common.Label" String="Changed By"/>
+<Annotation xmlns="http://docs.oasis-open.org/odata/ns/edm" Term="Core.Computed" Bool="true"/>
+<Annotation xmlns="http://docs.oasis-open.org/odata/ns/edm" Term="Core.Description" String="A user's unique ID"/>
+<Annotation xmlns="http://docs.oasis-open.org/odata/ns/edm" Term="UI.HiddenFilter" Bool="true"/>
+</Annotations>
+<Annotations xmlns="http://docs.oasis-open.org/odata/ns/edm" Target="CatalogService.Workers/name">
+<Annotation xmlns="http://docs.oasis-open.org/odata/ns/edm" Term="Common.Label" String="Name"/>
+</Annotations>
+<Annotations xmlns="http://docs.oasis-open.org/odata/ns/edm" Target="CatalogService.Workers/phone">
+<Annotation xmlns="http://docs.oasis-open.org/odata/ns/edm" Term="Common.Label" String="Phone"/>
+</Annotations>
+<Annotations xmlns="http://docs.oasis-open.org/odata/ns/edm" Target="CatalogService.Workers/gender">
+<Annotation xmlns="http://docs.oasis-open.org/odata/ns/edm" Term="Common.Label" String="Gender"/>
+<Annotation xmlns="http://docs.oasis-open.org/odata/ns/edm" Term="Common.ValueList">
+<Record xmlns="http://docs.oasis-open.org/odata/ns/edm" Type="Common.ValueListType">
+<PropertyValue xmlns="http://docs.oasis-open.org/odata/ns/edm" Property="CollectionPath" String="Genders"/>
+<PropertyValue xmlns="http://docs.oasis-open.org/odata/ns/edm" Property="Parameters">
+<Collection xmlns="http://docs.oasis-open.org/odata/ns/edm">
+<Record xmlns="http://docs.oasis-open.org/odata/ns/edm" Type="Common.ValueListParameterInOut">
+<PropertyValue xmlns="http://docs.oasis-open.org/odata/ns/edm" Property="LocalDataProperty" PropertyPath="gender"/>
+<PropertyValue xmlns="http://docs.oasis-open.org/odata/ns/edm" Property="ValueListProperty" String="gender"/>
+</Record>
+</Collection>
+</PropertyValue>
+<PropertyValue xmlns="http://docs.oasis-open.org/odata/ns/edm" Property="SearchSupported" Bool="true"/>
+</Record>
+</Annotation>
+</Annotations>
+<Annotations xmlns="http://docs.oasis-open.org/odata/ns/edm" Target="CatalogService.Workers/locality">
+<Annotation xmlns="http://docs.oasis-open.org/odata/ns/edm" Term="Common.Label" String="Locality"/>
+</Annotations>
+<Annotations xmlns="http://docs.oasis-open.org/odata/ns/edm" Target="CatalogService.Workers/city">
+<Annotation xmlns="http://docs.oasis-open.org/odata/ns/edm" Term="Common.Label" String="City"/>
+</Annotations>
+<Annotations xmlns="http://docs.oasis-open.org/odata/ns/edm" Target="CatalogService.Workers/state">
+<Annotation xmlns="http://docs.oasis-open.org/odata/ns/edm" Term="Common.Label" String="State"/>
+</Annotations>
+<Annotations xmlns="http://docs.oasis-open.org/odata/ns/edm" Target="CatalogService.Workers/country">
+<Annotation xmlns="http://docs.oasis-open.org/odata/ns/edm" Term="Common.Label" String="Country"/>
+<Annotation xmlns="http://docs.oasis-open.org/odata/ns/edm" Term="Core.Description" String="A country code as specified in ISO 3166-1"/>
+</Annotations>
+<Annotations xmlns="http://docs.oasis-open.org/odata/ns/edm" Target="CatalogService.Workers/pin_code">
+<Annotation xmlns="http://docs.oasis-open.org/odata/ns/edm" Term="Common.Label" String="Pin Code"/>
+</Annotations>
+<Annotations xmlns="http://docs.oasis-open.org/odata/ns/edm" Target="CatalogService.Workers/aadhar">
+<Annotation xmlns="http://docs.oasis-open.org/odata/ns/edm" Term="Common.Label" String="Aadhar"/>
+</Annotations>
+<Annotations xmlns="http://docs.oasis-open.org/odata/ns/edm" Target="CatalogService.Workers/birth_date">
+<Annotation xmlns="http://docs.oasis-open.org/odata/ns/edm" Term="Common.Label" String="Date of Birth"/>
+</Annotations>
+<Annotations xmlns="http://docs.oasis-open.org/odata/ns/edm" Target="CatalogService.Workers/status">
+<Annotation xmlns="http://docs.oasis-open.org/odata/ns/edm" Term="Common.Label" String="Status"/>
+<Annotation xmlns="http://docs.oasis-open.org/odata/ns/edm" Term="Common.ValueList">
+<Record xmlns="http://docs.oasis-open.org/odata/ns/edm" Type="Common.ValueListType">
+<PropertyValue xmlns="http://docs.oasis-open.org/odata/ns/edm" Property="CollectionPath" String="Status"/>
+<PropertyValue xmlns="http://docs.oasis-open.org/odata/ns/edm" Property="Parameters">
+<Collection xmlns="http://docs.oasis-open.org/odata/ns/edm">
+<Record xmlns="http://docs.oasis-open.org/odata/ns/edm" Type="Common.ValueListParameterInOut">
+<PropertyValue xmlns="http://docs.oasis-open.org/odata/ns/edm" Property="LocalDataProperty" PropertyPath="status"/>
+<PropertyValue xmlns="http://docs.oasis-open.org/odata/ns/edm" Property="ValueListProperty" String="status"/>
+</Record>
+</Collection>
+</PropertyValue>
+<PropertyValue xmlns="http://docs.oasis-open.org/odata/ns/edm" Property="SearchSupported" Bool="true"/>
+</Record>
+</Annotation>
+</Annotations>
+<Annotations xmlns="http://docs.oasis-open.org/odata/ns/edm" Target="CatalogService.Workers/skill">
+<Annotation xmlns="http://docs.oasis-open.org/odata/ns/edm" Term="Common.Label" String="Main Skill"/>
+<Annotation xmlns="http://docs.oasis-open.org/odata/ns/edm" Term="Common.ValueList">
+<Record xmlns="http://docs.oasis-open.org/odata/ns/edm" Type="Common.ValueListType">
+<PropertyValue xmlns="http://docs.oasis-open.org/odata/ns/edm" Property="CollectionPath" String="Skill_types"/>
+<PropertyValue xmlns="http://docs.oasis-open.org/odata/ns/edm" Property="Parameters">
+<Collection xmlns="http://docs.oasis-open.org/odata/ns/edm">
+<Record xmlns="http://docs.oasis-open.org/odata/ns/edm" Type="Common.ValueListParameterInOut">
+<PropertyValue xmlns="http://docs.oasis-open.org/odata/ns/edm" Property="LocalDataProperty" PropertyPath="skill"/>
+<PropertyValue xmlns="http://docs.oasis-open.org/odata/ns/edm" Property="ValueListProperty" String="skill"/>
+</Record>
+</Collection>
+</PropertyValue>
+<PropertyValue xmlns="http://docs.oasis-open.org/odata/ns/edm" Property="SearchSupported" Bool="true"/>
+</Record>
+</Annotation>
+</Annotations>
+<Annotations xmlns="http://docs.oasis-open.org/odata/ns/edm" Target="CatalogService.Workers/country_code">
+<Annotation xmlns="http://docs.oasis-open.org/odata/ns/edm" Term="Common.Label" String="Country"/>
+<Annotation xmlns="http://docs.oasis-open.org/odata/ns/edm" Term="Common.ValueList">
+<Record xmlns="http://docs.oasis-open.org/odata/ns/edm" Type="Common.ValueListType">
+<PropertyValue xmlns="http://docs.oasis-open.org/odata/ns/edm" Property="Label" String="Country"/>
+<PropertyValue xmlns="http://docs.oasis-open.org/odata/ns/edm" Property="CollectionPath" String="Countries"/>
+<PropertyValue xmlns="http://docs.oasis-open.org/odata/ns/edm" Property="Parameters">
+<Collection xmlns="http://docs.oasis-open.org/odata/ns/edm">
+<Record xmlns="http://docs.oasis-open.org/odata/ns/edm" Type="Common.ValueListParameterInOut">
+<PropertyValue xmlns="http://docs.oasis-open.org/odata/ns/edm" Property="LocalDataProperty" PropertyPath="country_code"/>
+<PropertyValue xmlns="http://docs.oasis-open.org/odata/ns/edm" Property="ValueListProperty" String="code"/>
+</Record>
+<Record xmlns="http://docs.oasis-open.org/odata/ns/edm" Type="Common.ValueListParameterDisplayOnly">
+<PropertyValue xmlns="http://docs.oasis-open.org/odata/ns/edm" Property="ValueListProperty" String="name"/>
+</Record>
+</Collection>
+</PropertyValue>
+</Record>
+</Annotation>
+<Annotation xmlns="http://docs.oasis-open.org/odata/ns/edm" Term="Core.Description" String="A country code as specified in ISO 3166-1"/>
+</Annotations>
+</Schema>
+</edmx:DataServices>
+</edmx:Edmx>

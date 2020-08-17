@@ -1,0 +1,178 @@
+{
+	"_version": "1.7.0",
+	"start_url": "start.html",
+	"sap.app": {
+		"id": "com.sap.web-overview",
+		"type": "application",
+		"i18n": "i18n/i18n.properties",
+		"applicationVersion": {
+			"version": "1.0.0"
+		},
+		"title": "{{app_title}}",
+		"description": "{{app_description}}",
+		"ach": "abc",
+		"resources": "resources.json",
+		"dataSources": {
+			"CatalogService": {
+				"uri": "/srv_api/odata/v2/CatalogService/",
+				"type": "OData",
+				"settings": {
+					"odataVersion": "2.0",
+					"localUri": "localService/CatalogService/metadata.xml"
+				}
+			}
+		},
+		"sourceTemplate": {
+			"id": "OVP.cardtemplate",
+			"version": "0.0.0"
+		},
+		"crossNavigation": {
+			"inbounds": {
+				"intent1": {
+					"signature": {
+						"parameters": {},
+						"additionalParameters": "allowed"
+					},
+					"semanticObject": "Overview",
+					"action": "action1",
+					"title": "Overview",
+					"icon": "sap-icon://overview-chart"
+				}
+			}
+		}
+	},
+	"sap.ui": {
+		"technology": "UI5",
+		"icons": {
+			"icon": ""
+		},
+		"deviceTypes": {
+			"desktop": true,
+			"tablet": true,
+			"phone": true
+		},
+		"supportedThemes": [
+			"sap_fiori_3"
+		]
+	},
+	"sap.ui5": {
+		"dependencies": {
+			"minUI5Version": "1.38.34",
+			"libs": {
+				"sap.ovp": {}
+			}
+		},
+		"models": {
+			"i18n": {
+				"type": "sap.ui.model.resource.ResourceModel",
+				"uri": "i18n/i18n.properties"
+			},
+			"@i18n": {
+				"preload": true,
+				"type": "sap.ui.model.resource.ResourceModel",
+				"uri": "i18n/i18n.properties"
+			},
+			"CatalogService": {
+				"dataSource": "CatalogService",
+				"settings": {
+					"defaultCountMode": "Inline",
+					"metadataUrlParams": {
+						"sap-value-list": "none"
+					}
+				}
+			}
+		},
+		"extends": {
+			"extensions": {}
+		},
+		"contentDensities": {
+			"compact": true,
+			"cozy": true
+		}
+	},
+	"sap.fiori": {
+		"registrationIds": [],
+		"archeType": "analytical"
+	},
+	"sap.ovp": {
+		"globalFilterModel": "CatalogService",
+		"globalFilterEntityType": "",
+		"containerLayout": "resizable",
+		"enableLiveFilter": false,
+		"considerAnalyticalParameters": true,
+		"cards": {
+			"card00": {
+				"model": "CatalogService",
+				"template": "sap.ovp.cards.table",
+				"settings": {
+					"title": "{{card00_title}}",
+					"entitySet": "Workers",
+					"addODataSelect": false
+				}
+			},
+			"card01": {
+				"model": "CatalogService",
+				"template": "sap.ovp.cards.charts.analytical",
+				"settings": {
+					"title": "{{card00_title}}",
+					"entitySet": "WorkersALP",
+					"chartAnnotationPath": "com.sap.vocabularies.UI.v1.Chart"
+				}
+			},
+			"card02": {
+				"model": "CatalogService",
+				"template": "sap.ovp.cards.stack",
+				"settings": {
+					"title": "{{card02_title}}",
+					"entitySet": "Campaigns",
+					"addODataSelect": false
+				}
+			},
+			"card03": {
+				"model": "CatalogService",
+				"template": "sap.ovp.cards.charts.analytical",
+				"settings": {
+					"title": "{{card03_title}}",
+					"entitySet": "CampaignsALP",
+					"chartAnnotationPath": "com.sap.vocabularies.UI.v1.Chart"
+				}
+			},
+			"card04": {
+				"model": "CatalogService",
+				"template": "sap.ovp.cards.charts.analytical",
+				"settings": {
+					"title": "{{card04_title}}",
+					"entitySet": "JobsALP",
+					"chartAnnotationPath": "com.sap.vocabularies.UI.v1.Chart"
+				}
+			},
+			"card05": {
+				"model": "CatalogService",
+				"template": "sap.ovp.cards.charts.analytical",
+				"settings": {
+					"title": "{{card05_title}}",
+					"entitySet": "NGOsALP",
+					"chartAnnotationPath": "com.sap.vocabularies.UI.v1.Chart"
+				}
+			},
+			"card06": {
+				"model": "CatalogService",
+				"template": "sap.ovp.cards.stack",
+				"settings": {
+					"title": "{{card06_title}}",
+					"entitySet": "Jobs",
+					"addODataSelect": false
+				}
+			},
+			"card07": {
+				"model": "CatalogService",
+				"template": "sap.ovp.cards.stack",
+				"settings": {
+					"title": "{{card05_title}}",
+					"entitySet": "NGO",
+					"addODataSelect": false
+				}
+			}
+		}
+	}
+}

@@ -1,0 +1,26 @@
+<edmx:Edmx xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx" Version="4.0">
+	<edmx:Reference Uri="/srv_api/odata/v2/CatalogService/$metadata">
+		<edmx:Include Alias="Metadata" Namespace="CatalogService"/>
+	</edmx:Reference>
+	<edmx:Reference Uri="https://wiki.scn.sap.com/wiki/download/attachments/448470974/Common.xml?api=v2">
+		<edmx:Include Alias="Common" Namespace="com.sap.vocabularies.Common.v1"/>
+	</edmx:Reference>
+	<edmx:Reference Uri="https://wiki.scn.sap.com/wiki/download/attachments/448470968/UI.xml?api=v2">
+		<edmx:Include Alias="UI" Namespace="com.sap.vocabularies.UI.v1"/>
+	</edmx:Reference>
+	<edmx:DataServices>
+		<Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Innvent.web-wrokers.annotation0.CatalogService">
+			<Annotations xmlns="http://docs.oasis-open.org/odata/ns/edm" Target="Metadata.Workers/phone">
+				<Annotation Term="com.sap.vocabularies.Common.v1.SemanticObject" String="tel:{phone}"/>
+			</Annotations>
+			<Annotations Target="Metadata.Workers">
+				<Annotation Term="UI.GeoLocation">
+					<Record Type="UI.GeoLocationType">
+						<PropertyValue Property="Latitude" Path="lat"/>
+						<PropertyValue Property="Longitude" Path="long"/>
+					</Record>
+				</Annotation>
+			</Annotations>
+		</Schema>
+	</edmx:DataServices>
+</edmx:Edmx>

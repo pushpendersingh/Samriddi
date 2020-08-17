@@ -1,0 +1,155 @@
+{
+	"_version": "3.0.0",
+	"identification": {
+		"id": "b13b2a70-297b-4889-8b27-b2001c354f72-1594230500160",
+		"entityType": "bundle"
+	},
+	"payload": {
+		"catalogs": [{
+			"_version": "3.0.0",
+			"identification": {
+				"id": "defaultCatalogId",
+				"title": "{{title}}",
+				"entityType": "catalog",
+				"i18n": "i18n/defaultCatalogId.properties"
+			},
+			"payload": {
+				"viz": []
+			}
+		}],
+		"groups": [{
+			"_version": "3.0.0",
+			"identification": {
+				"id": "defaultGroupId",
+				"title": "{{title}}",
+				"entityType": "group",
+				"i18n": "i18n/defaultGroupId.properties"
+			},
+			"payload": {
+				"viz": [{
+					"id": "com.sap.web-wrokers-0-1594744770990",
+					"appId": "com.sap.web-wrokers",
+					"vizId": "Workers-list"
+				}, {
+					"id": "com.sap.web-ngos-1-1595251372080",
+					"appId": "com.sap.web-ngos",
+					"vizId": "NGO-list"
+				}, {
+					"id": "com.sap.web-jobs-3-1595256120207",
+					"appId": "com.sap.web-jobs",
+					"vizId": "Jobs-post"
+				}, {
+					"id": "com.sap.web-campaigns-3-1595256286247",
+					"appId": "com.sap.web-campaigns",
+					"vizId": "Campaigns-support"
+				}, {
+					"id": "com.sap.web-overview-4-1595956616843",
+					"appId": "com.sap.web-overview",
+					"vizId": "Overview-action1"
+				}]
+			}
+		}, {
+			"_version": "3.0.0",
+			"identification": {
+				"id": "employer",
+				"title": "{{title}}",
+				"entityType": "group",
+				"i18n": "i18n/employer.properties"
+			},
+			"payload": {
+				"viz": [{
+					"id": "com.sap.web-wrokers-0-1595251372080",
+					"appId": "com.sap.web-wrokers",
+					"vizId": "Workers-list"
+				}, {
+					"id": "com.sap.web-jobs-2-1595256120207",
+					"appId": "com.sap.web-jobs",
+					"vizId": "Jobs-post"
+				}]
+			}
+		}, {
+			"_version": "3.0.0",
+			"identification": {
+				"id": "worker",
+				"title": "{{title}}",
+				"entityType": "group",
+				"i18n": "i18n/worker.properties"
+			},
+			"payload": {
+				"viz": [{
+					"id": "com.sap.web-ngos-1-1595251372080",
+					"appId": "com.sap.web-ngos",
+					"vizId": "NGO-list"
+				}, {
+					"id": "com.sap.web-campaigns-2-1595256286247",
+					"appId": "com.sap.web-campaigns",
+					"vizId": "Campaigns-support"
+				}, {
+					"id": "com.sap.web-jobs-1-1595255842147",
+					"appId": "com.sap.web-jobs",
+					"vizId": "Jobs-list"
+				}]
+			}
+		}, {
+			"_version": "3.0.0",
+			"identification": {
+				"id": "ngo",
+				"title": "{{title}}",
+				"entityType": "group",
+				"i18n": "i18n/ngo.properties"
+			},
+			"payload": {
+				"viz": [{
+					"id": "com.sap.web-wrokers-0-1595253942932",
+					"appId": "com.sap.web-wrokers",
+					"vizId": "Workers-list"
+				}, {
+					"id": "com.sap.web-ngos-1-1595253942932",
+					"appId": "com.sap.web-ngos",
+					"vizId": "NGO-list"
+				}, {
+					"id": "com.sap.web-campaigns-3-1595256286247",
+					"appId": "com.sap.web-campaigns",
+					"vizId": "Campaigns-create"
+				}, {
+					"id": "com.sap.web-jobs-3-1595421246936",
+					"appId": "com.sap.web-jobs",
+					"vizId": "Jobs-list"
+				}]
+			}
+		}],
+		"sites": [{
+			"_version": "3.0.0",
+			"identification": {
+				"id": "2720dc93-093e-4e2c-825b-47597437bd68-1594230500160",
+				"entityType": "site",
+				"title": "SAP Fiori launchpad site on Cloud Foundry",
+				"description": "SAP Fiori launchpad site on Cloud Foundry, deployed from SAP Web IDE"
+			},
+			"payload": {
+				"config": {
+					"ushellConfig": {
+						"renderers": {
+							"fiori2": {
+								"componentData": {
+									"config": {
+										"applications": {
+											"Shell-home": {}
+										}
+									}
+								}
+							}
+						}
+					}
+				},
+				"groupsOrder": ["defaultGroupId", "employer", "worker", "ngo"],
+				"sap.cloud.portal": {
+					"config": {
+						"theme.id": "sap_fiori_3",
+						"theme.active": ["sap_fiori_3", "sap_fiori_3_dark", "sap_belize_hcb", "sap_belize_hcw"]
+					}
+				}
+			}
+		}]
+	}
+}

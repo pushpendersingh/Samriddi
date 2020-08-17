@@ -1,0 +1,181 @@
+[{
+	"createdAt": "/Date(967803826000+0000)/",
+	"createdBy": "createdBy 1",
+	"modifiedAt": "/Date(1114251826000+0000)/",
+	"modifiedBy": "modifiedBy 1",
+	"ID": "00a4c48c-0dfc-4507-abc6-9b54a431b788",
+	"skill": "skill 1",
+	"experience": 1,
+	"worker_ID": "f3e90896-0a5e-4c86-86ea-cf9424f75486",
+	"__metadata": {
+		"uri": "Skill_details(guid'00a4c48c-0dfc-4507-abc6-9b54a431b788')",
+		"type": "CatalogService.Skill_details"
+	},
+	"worker": {
+		"__deferred": {
+			"uri": "Skill_details(guid'00a4c48c-0dfc-4507-abc6-9b54a431b788')/worker"
+		}
+	}
+}, {
+	"createdAt": "/Date(1264155826000+0000)/",
+	"createdBy": "createdBy 2",
+	"modifiedAt": "/Date(1509186226000+0000)/",
+	"modifiedBy": "modifiedBy 2",
+	"ID": "3de340d6-7800-412b-9f0c-22f5003d8c86",
+	"skill": "skill 2",
+	"experience": 2,
+	"worker_ID": "bfdfa469-78cd-44b8-ac65-7530dd17c45c",
+	"__metadata": {
+		"uri": "Skill_details(guid'3de340d6-7800-412b-9f0c-22f5003d8c86')",
+		"type": "CatalogService.Skill_details"
+	},
+	"worker": {
+		"__deferred": {
+			"uri": "Skill_details(guid'3de340d6-7800-412b-9f0c-22f5003d8c86')/worker"
+		}
+	}
+}, {
+	"createdAt": "/Date(1149157426000+0000)/",
+	"createdBy": "createdBy 3",
+	"modifiedAt": "/Date(1224671026000+0000)/",
+	"modifiedBy": "modifiedBy 3",
+	"ID": "32490678-e9b7-4be4-8e52-2f1af8f209cf",
+	"skill": "skill 3",
+	"experience": 3,
+	"worker_ID": "0c26fa31-ccf5-4b07-997f-010b4bd966bc",
+	"__metadata": {
+		"uri": "Skill_details(guid'32490678-e9b7-4be4-8e52-2f1af8f209cf')",
+		"type": "CatalogService.Skill_details"
+	},
+	"worker": {
+		"__deferred": {
+			"uri": "Skill_details(guid'32490678-e9b7-4be4-8e52-2f1af8f209cf')/worker"
+		}
+	}
+}, {
+	"createdAt": "/Date(1190111026000+0000)/",
+	"createdBy": "createdBy 4",
+	"modifiedAt": "/Date(1157711026000+0000)/",
+	"modifiedBy": "modifiedBy 4",
+	"ID": "b14f718f-4ac1-4211-97d8-8ebd4145aa3b",
+	"skill": "skill 4",
+	"experience": 4,
+	"worker_ID": "9c3f90fb-1e3b-4083-a1c6-ca6e8a9a2fbe",
+	"__metadata": {
+		"uri": "Skill_details(guid'b14f718f-4ac1-4211-97d8-8ebd4145aa3b')",
+		"type": "CatalogService.Skill_details"
+	},
+	"worker": {
+		"__deferred": {
+			"uri": "Skill_details(guid'b14f718f-4ac1-4211-97d8-8ebd4145aa3b')/worker"
+		}
+	}
+}, {
+	"createdAt": "/Date(1139221426000+0000)/",
+	"createdBy": "createdBy 5",
+	"modifiedAt": "/Date(1405333426000+0000)/",
+	"modifiedBy": "modifiedBy 5",
+	"ID": "0a4d4de6-e3c4-411c-9676-3879c2ae7dde",
+	"skill": "skill 5",
+	"experience": 5,
+	"worker_ID": "f340abaa-acf0-42f8-8432-04307c9e409e",
+	"__metadata": {
+		"uri": "Skill_details(guid'0a4d4de6-e3c4-411c-9676-3879c2ae7dde')",
+		"type": "CatalogService.Skill_details"
+	},
+	"worker": {
+		"__deferred": {
+			"uri": "Skill_details(guid'0a4d4de6-e3c4-411c-9676-3879c2ae7dde')/worker"
+		}
+	}
+}, {
+	"createdAt": "/Date(1301394226000+0000)/",
+	"createdBy": "createdBy 6",
+	"modifiedAt": "/Date(1516098226000+0000)/",
+	"modifiedBy": "modifiedBy 6",
+	"ID": "7e7a7490-d287-4c0c-af49-b5592ea7cb2e",
+	"skill": "skill 6",
+	"experience": 0,
+	"worker_ID": "5752f01f-49af-48a2-838d-e420f52d6f93",
+	"__metadata": {
+		"uri": "Skill_details(guid'7e7a7490-d287-4c0c-af49-b5592ea7cb2e')",
+		"type": "CatalogService.Skill_details"
+	},
+	"worker": {
+		"__deferred": {
+			"uri": "Skill_details(guid'7e7a7490-d287-4c0c-af49-b5592ea7cb2e')/worker"
+		}
+	}
+}, {
+	"createdAt": "/Date(1274178226000+0000)/",
+	"createdBy": "createdBy 7",
+	"modifiedAt": "/Date(990267826000+0000)/",
+	"modifiedBy": "modifiedBy 7",
+	"ID": "7f33bba1-7e88-4d42-91ce-b4f9eee9a1f3",
+	"skill": "skill 7",
+	"experience": 4,
+	"worker_ID": "1a3db093-8991-4e82-9d99-b5c5a36ce08b",
+	"__metadata": {
+		"uri": "Skill_details(guid'7f33bba1-7e88-4d42-91ce-b4f9eee9a1f3')",
+		"type": "CatalogService.Skill_details"
+	},
+	"worker": {
+		"__deferred": {
+			"uri": "Skill_details(guid'7f33bba1-7e88-4d42-91ce-b4f9eee9a1f3')/worker"
+		}
+	}
+}, {
+	"createdAt": "/Date(1532341426000+0000)/",
+	"createdBy": "createdBy 8",
+	"modifiedAt": "/Date(1210155826000+0000)/",
+	"modifiedBy": "modifiedBy 8",
+	"ID": "0780cc76-ea52-4fea-9900-c5356618f090",
+	"skill": "skill 8",
+	"experience": 1,
+	"worker_ID": "72dc304e-8956-4316-b7f4-277c9adfbd2d",
+	"__metadata": {
+		"uri": "Skill_details(guid'0780cc76-ea52-4fea-9900-c5356618f090')",
+		"type": "CatalogService.Skill_details"
+	},
+	"worker": {
+		"__deferred": {
+			"uri": "Skill_details(guid'0780cc76-ea52-4fea-9900-c5356618f090')/worker"
+		}
+	}
+}, {
+	"createdAt": "/Date(1539944626000+0000)/",
+	"createdBy": "createdBy 9",
+	"modifiedAt": "/Date(1555496626000+0000)/",
+	"modifiedBy": "modifiedBy 9",
+	"ID": "1a2176bc-f0aa-4bec-8dfb-b2af6e418bd9",
+	"skill": "skill 9",
+	"experience": 1,
+	"worker_ID": "34d6f3e4-94b5-400f-86a1-a711c3099e6d",
+	"__metadata": {
+		"uri": "Skill_details(guid'1a2176bc-f0aa-4bec-8dfb-b2af6e418bd9')",
+		"type": "CatalogService.Skill_details"
+	},
+	"worker": {
+		"__deferred": {
+			"uri": "Skill_details(guid'1a2176bc-f0aa-4bec-8dfb-b2af6e418bd9')/worker"
+		}
+	}
+}, {
+	"createdAt": "/Date(1039429426000+0000)/",
+	"createdBy": "createdBy 10",
+	"modifiedAt": "/Date(1239359026000+0000)/",
+	"modifiedBy": "modifiedBy 10",
+	"ID": "99f86472-fb4e-46c1-adc5-145c48b1e552",
+	"skill": "skill 10",
+	"experience": 4,
+	"worker_ID": "81972519-01a4-4fcf-8eb8-96044bbbf8cc",
+	"__metadata": {
+		"uri": "Skill_details(guid'99f86472-fb4e-46c1-adc5-145c48b1e552')",
+		"type": "CatalogService.Skill_details"
+	},
+	"worker": {
+		"__deferred": {
+			"uri": "Skill_details(guid'99f86472-fb4e-46c1-adc5-145c48b1e552')/worker"
+		}
+	}
+}]

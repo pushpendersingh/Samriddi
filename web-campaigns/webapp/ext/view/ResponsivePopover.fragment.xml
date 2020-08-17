@@ -1,0 +1,16 @@
+<core:FragmentDefinition
+	xmlns="sap.m"
+	xmlns:core="sap.ui.core">
+	<ResponsivePopover title="Share on"
+		class=""
+		placement="Bottom">
+		<content>
+				<SelectList itemPress="itemPress">
+					<core:ListItem key="wa" text="WhatsApp" icon="https://image.flaticon.com/icons/svg/2111/2111728.svg"/>
+					<core:ListItem key="fb" text="Facebook" icon="https://facebookbrand.com/wp-content/uploads/2019/04/f_logo_RGB-Hex-Blue_512.png"/>
+					<core:ListItem key="tt" text="Twitter" icon="http://3.bp.blogspot.com/-NxouMmz2bOY/T8_ac97cesI/AAAAAAAAGg0/e3vY1_bdnbE/s1600/Twitter+logo+2012.png"/>
+					<core:ListItem key="li" text="LinkedIn" icon="https://image.flaticon.com/icons/svg/174/174857.svg"/>
+				</SelectList>
+		</content>
+	</ResponsivePopover>
+</core:FragmentDefinition>

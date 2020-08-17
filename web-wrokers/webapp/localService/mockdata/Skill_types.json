@@ -1,0 +1,61 @@
+[{
+	"skill": "skill 1",
+	"__metadata": {
+		"uri": "Skill_types('skill%201')",
+		"type": "CatalogService.Skill_types"
+	}
+}, {
+	"skill": "skill 2",
+	"__metadata": {
+		"uri": "Skill_types('skill%202')",
+		"type": "CatalogService.Skill_types"
+	}
+}, {
+	"skill": "skill 3",
+	"__metadata": {
+		"uri": "Skill_types('skill%203')",
+		"type": "CatalogService.Skill_types"
+	}
+}, {
+	"skill": "skill 4",
+	"__metadata": {
+		"uri": "Skill_types('skill%204')",
+		"type": "CatalogService.Skill_types"
+	}
+}, {
+	"skill": "skill 5",
+	"__metadata": {
+		"uri": "Skill_types('skill%205')",
+		"type": "CatalogService.Skill_types"
+	}
+}, {
+	"skill": "skill 6",
+	"__metadata": {
+		"uri": "Skill_types('skill%206')",
+		"type": "CatalogService.Skill_types"
+	}
+}, {
+	"skill": "skill 7",
+	"__metadata": {
+		"uri": "Skill_types('skill%207')",
+		"type": "CatalogService.Skill_types"
+	}
+}, {
+	"skill": "skill 8",
+	"__metadata": {
+		"uri": "Skill_types('skill%208')",
+		"type": "CatalogService.Skill_types"
+	}
+}, {
+	"skill": "skill 9",
+	"__metadata": {
+		"uri": "Skill_types('skill%209')",
+		"type": "CatalogService.Skill_types"
+	}
+}, {
+	"skill": "skill 10",
+	"__metadata": {
+		"uri": "Skill_types('skill%2010')",
+		"type": "CatalogService.Skill_types"
+	}
+}]

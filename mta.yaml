@@ -1,0 +1,228 @@
+ID: Innvent
+_schema-version: '2.1'
+parameters:
+  deploy_mode: html5-repo
+version: 0.0.1
+modules:
+  - name: innvent-approuter
+    type: approuter.nodejs
+    path: innvent-approuter
+    parameters:
+      disk-quota: 256M
+      memory: 256M
+    requires:
+      - name: Innvent_html5_repo_runtime
+      - name: portal_resources_Innvent
+      - name: Innvent-uaa
+      - name: sms_api
+        group: destinations
+        properties:
+          forwardAuthToken: true
+          name: sms_api
+          url: '~{url}'
+      - name: srv_api
+        group: destinations
+        properties:
+          forwardAuthToken: true
+          name: srv_api
+          url: '~{url}'
+  - name: Innvent_ui_deployer
+    type: com.sap.html5.application-content
+    path: Innvent_ui_deployer
+    requires:
+      - name: Innvent_html5_repo_host
+    build-parameters:
+      requires:
+        - name: web-wrokers
+          artifacts:
+            - './*'
+          target-path: resources/web-wrokers
+        - name: web-ngos
+          artifacts:
+            - './*'
+          target-path: resources/web-ngos
+        - name: web-campaigns
+          artifacts:
+            - './*'
+          target-path: resources/web-campaigns
+        - name: web-jobs
+          artifacts:
+            - './*'
+          target-path: resources/web-jobs
+        - name: web-overview
+          artifacts:
+            - './*'
+          target-path: resources/web-overview
+  - name: Innvent-db
+    type: hdb
+    path: db
+    parameters:
+      memory: 256M
+      disk-quota: 512M
+    requires:
+      - name: Innvent-db-hdi-container
+  - name: Innvent-srv
+    type: java
+    path: srv
+    parameters:
+      memory: 1024M
+    provides:
+      - name: srv_api
+        properties:
+          url: '${default-url}'
+    requires:
+      - name: Innvent-db-hdi-container
+        properties:
+          JBP_CONFIG_RESOURCE_CONFIGURATION: '[tomcat/webapps/ROOT/META-INF/context.xml: {"service_name_for_DefaultDB" : "~{hdi-container-name}"}]'
+      - name: Innvent-uaa
+  - name: flp
+    type: com.sap.portal.content
+    path: flp
+    parameters:
+      stack: cflinuxfs3
+      memory: 128M
+      buildpack: 'https://github.com/cloudfoundry/nodejs-buildpack/releases/download/v1.6.39/nodejs-buildpack-cflinuxfs3-v1.6.39.zip'
+    requires:
+      - name: portal_resources_Innvent
+      - name: Innvent-uaa
+      - name: Innvent_html5_repo_host
+      - name: Innvent_ui_deployer
+  - name: web-wrokers
+    type: html5
+    path: web-wrokers
+    build-parameters:
+      builder: custom
+      commands:
+        - npm install
+        - npm run build
+      supported-platforms: []
+      build-result: dist
+    requires:
+      - name: srv_api
+        group: destinations
+        properties:
+          forwardAuthToken: true
+          strictSSL: false
+          name: srv_api
+          url: '~{url}'
+  - name: web-ngos
+    type: html5
+    path: web-ngos
+    build-parameters:
+      builder: custom
+      commands:
+        - npm install
+        - npm run build
+      supported-platforms: []
+      build-result: dist
+    requires:
+      - name: srv_api
+        group: destinations
+        properties:
+          forwardAuthToken: true
+          strictSSL: false
+          name: srv_api
+          url: '~{url}'
+  - name: web-campaigns
+    type: html5
+    path: web-campaigns
+    build-parameters:
+      builder: custom
+      commands:
+        - npm install
+        - npm run build
+      supported-platforms: []
+      build-result: dist
+    requires:
+      - name: srv_api
+        group: destinations
+        properties:
+          forwardAuthToken: true
+          strictSSL: false
+          name: srv_api
+          url: '~{url}'
+      - name: sms_api
+        group: destinations
+        properties:
+          forwardAuthToken: true
+          strictSSL: false
+          name: sms_api
+          url: '~{url}'
+  - name: web-jobs
+    type: html5
+    path: web-jobs
+    build-parameters:
+      builder: custom
+      commands:
+        - npm install
+        - npm run build
+      supported-platforms: []
+      build-result: dist
+    requires:
+      - name: srv_api
+        group: destinations
+        properties:
+          forwardAuthToken: true
+          strictSSL: false
+          name: srv_api
+          url: '~{url}'
+  - name: sms
+    type: nodejs
+    path: sms
+    provides:
+      - name: sms_api
+        properties:
+          url: '${default-url}'
+  - name: web-overview
+    type: html5
+    path: web-overview
+    build-parameters:
+      builder: custom
+      commands:
+        - npm install
+        - npm run build
+      supported-platforms: []
+      build-result: dist
+    requires:
+      - name: srv_api
+        group: destinations
+        properties:
+          forwardAuthToken: true
+          strictSSL: false
+          name: srv_api
+          url: '~{url}'
+          
+resources:
+  - name: Innvent_html5_repo_runtime
+    parameters:
+      service-plan: app-runtime
+      service: html5-apps-repo
+    type: org.cloudfoundry.managed-service
+  - name: Innvent_html5_repo_host
+    parameters:
+      service-plan: app-host
+      service: html5-apps-repo
+    type: org.cloudfoundry.managed-service
+  - name: Innvent-db-hdi-container
+    type: com.sap.xs.hdi-container
+    properties:
+      hdi-container-name: '${service-name}'
+  - name: Innvent-uaa
+    type: org.cloudfoundry.managed-service
+    parameters:
+      path: ./xs-security.json
+      service-plan: application
+      service: xsuaa
+      config:
+        xsappname: 'Innvent-${space}'
+        tenant-mode: dedicated
+  - name: portal_resources_Innvent
+    parameters:
+      service-plan: standard
+      service: portal
+    type: org.cloudfoundry.managed-service
+  - name: dest_Innvent
+    parameters:
+      service-plan: lite
+      service: destination
+    type: org.cloudfoundry.managed-service
